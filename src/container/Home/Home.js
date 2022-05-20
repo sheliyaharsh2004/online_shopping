@@ -134,7 +134,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/men-01.jpg" alt />
+                                            <img src="./assets/images/men-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Spring</h4>
@@ -157,7 +157,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/men-02.jpg" alt />
+                                            <img src="assets/images/men-02.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Air Force 1 X</h4>
@@ -180,7 +180,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/men-03.jpg" alt />
+                                            <img src="assets/images/men-03.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Love Nana ‘20</h4>
@@ -203,7 +203,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/men-01.jpg" alt />
+                                            <img src="assets/images/men-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Spring</h4>
@@ -248,7 +248,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/women-01.jpg" alt />
+                                            <img src="assets/images/women-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>New Green Jacket</h4>
@@ -271,7 +271,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/women-02.jpg" alt />
+                                            <img src="assets/images/women-02.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Dress</h4>
@@ -294,7 +294,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/women-03.jpg" alt />
+                                            <img src="assets/images/women-03.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Spring Collection</h4>
@@ -317,7 +317,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/women-01.jpg" alt />
+                                            <img src="assets/images/women-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Spring</h4>
@@ -362,7 +362,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/kid-01.jpg" alt />
+                                            <img src="assets/images/kid-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>School Collection</h4>
@@ -385,7 +385,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/kid-02.jpg" alt />
+                                            <img src="assets/images/kid-02.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Summer Cap</h4>
@@ -408,7 +408,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/kid-03.jpg" alt />
+                                            <img src="assets/images/kid-03.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Kid</h4>
@@ -431,7 +431,7 @@ function Home(props) {
                                                     <li><a href="single-product.html"><i className="fa fa-shopping-cart" /></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="%PUBLIC_URL%/assets/images/kid-01.jpg" alt />
+                                            <img src="assets/images/kid-01.jpg" alt />
                                         </div>
                                         <div className="down-content">
                                             <h4>Classic Spring</h4>
@@ -479,12 +479,12 @@ function Home(props) {
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="first-image">
-                                            <img src="%PUBLIC_URL%/assets/images/explore-image-01.jpg" alt />
+                                            <img src="assets/images/explore-image-01.jpg" alt />
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="second-image">
-                                            <img src="%PUBLIC_URL%/assets/images/explore-image-02.jpg" alt />
+                                            <img src="assets/images/explore-image-02.jpg" alt />
                                         </div>
                                     </div>
                                     <div className="col-lg-6">
@@ -520,7 +520,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-01.jpg" alt />
+                                <img src="assets/images/instagram-01.jpg" alt />
                             </div>
                         </div>
                         <div className="col-2">
@@ -531,7 +531,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-02.jpg" alt />
+                                <img src="assets/images/instagram-02.jpg" alt />
                             </div>
                         </div>
                         <div className="col-2">
@@ -542,7 +542,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-03.jpg" alt />
+                                <img src="assets/images/instagram-03.jpg" alt />
                             </div>
                         </div>
                         <div className="col-2">
@@ -553,7 +553,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-04.jpg" alt />
+                                <img src="assets/images/instagram-04.jpg" alt />
                             </div>
                         </div>
                         <div className="col-2">
@@ -564,7 +564,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-05.jpg" alt />
+                                <img src="assets/images/instagram-05.jpg" alt />
                             </div>
                         </div>
                         <div className="col-2">
@@ -575,7 +575,7 @@ function Home(props) {
                                         <i className="fa fa-instagram" />
                                     </a>
                                 </div>
-                                <img src="%PUBLIC_URL%/assets/images/instagram-06.jpg" alt />
+                                <img src="assets/images/instagram-06.jpg" alt />
                             </div>
                         </div>
                     </div>
