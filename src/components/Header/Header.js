@@ -16,19 +16,32 @@ function Header(props) {
                             {/* ***** Menu Start ***** */}
                             <ul className="nav">
                                 <li className="scroll-to-section">
-                                    {/* <a href="#top" className="active">Home</a> */}
-                                    <NavLink to={"/"} className="active">Home</NavLink>
+                                    <NavLink to={"/"}>Home</NavLink>
                                 </li>
-                                <li className="scroll-to-section"><a href="#men">Men's</a></li>
-                                <li className="scroll-to-section"><a href="#women">Women's</a></li>
-                                <li className="scroll-to-section"><a href="#kids">Kid's</a></li>
+                                <li className="scroll-to-section">
+                                    <NavLink to={"/men"} className="">Men's</NavLink>
+                                </li>
+                                <li className="scroll-to-section">
+                                    <NavLink to={"/women"}>Women's</NavLink>
+                                </li>
+                                <li className="scroll-to-section">
+                                    <NavLink to={"/kid"} className="">Kid's</NavLink>
+                                </li>
                                 <li className="submenu">
                                     <a href="javascript:;">Pages</a>
                                     <ul>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="products.html">Products</a></li>
-                                        <li><a href="single-product.html">Single Product</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
+                                        <li>
+                                            <NavLink to={"/about"} className="active">About</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to={"/products"} className="active">Products</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to={"/single-product"} className="active">Single_Product</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to={"/contact"} className="active">Contact</NavLink>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li className="submenu">
@@ -41,6 +54,10 @@ function Header(props) {
                                     </ul>
                                 </li>
                                 <li className="scroll-to-section"><a href="#explore">Explore</a></li>
+
+                                <li className="scroll-to-section">
+                                    <NavLink to={"/login"} >Login</NavLink>
+                                </li>
                             </ul>
                             <a className="menu-trigger">
                                 <span>Menu</span>
