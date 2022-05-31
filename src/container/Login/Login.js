@@ -2,6 +2,11 @@ import React, { useState } from "react";
 // import { Button, FormGroup, Input, Label } from "reactstrap";
 import * as yup from "yup";
 import { Form, Formik, useFormik } from "formik";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import LogoutIcon from '@mui/icons-material/Logout';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 
 function Login(props) {
   const [userType, setUserType] = useState("Login");
@@ -84,143 +89,123 @@ function Login(props) {
             <div className="col-lg-6">
               <Formik values={formik}>
                 <Form onSubmit={formik.handleSubmit} className="php-email-form">
-                    {userType === "forgotPassword" ? (
+                  {userType === "forgotPassword" ? (
+                    <div className="form-group mt-3 mt-md-0">
+                      <input
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        id="email"
+                        placeholder="Enter email"
+                      />
+                      {formik.errors.email ? (
+                        <p>{formik.errors.email}</p>
+                      ) : null}
+                      <div className="validate" />
+                    </div>
+                  ) : null}
+                  {userType === "Signup" ? (
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        id="name"
+                        placeholder="Your Name"
+                        onChange={formik.handleChange}
+                      />
+                      <div className="validate" />
+                      {formik.errors.name ? <p>{formik.errors.name}</p> : null}
+                    </div>
+                  ) : null}
+                  {userType === "Login" || userType === "Signup" ? (
+                    <>
                       <div className="form-group mt-3 mt-md-0">
                         <input
                           type="email"
                           className="form-control"
                           name="email"
                           id="email"
-                          placeholder="Enter email"
+                          placeholder="Your Email"
+                          data-rule="email"
+                          data-msg="Please enter a valid email"
+                          onChange={formik.handleChange}
                         />
                         {formik.errors.email ? (
                           <p>{formik.errors.email}</p>
                         ) : null}
                         <div className="validate" />
                       </div>
-                    ) : null}
-                    {userType === "Signup" ? (
-                      <div className="form-group">
+                      <div className="form-group mt-3 mt-md-0">
                         <input
-                          type="text"
-                          name="name"
+                          type="password"
                           className="form-control"
-                          id="name"
-                          placeholder="Your Name"
+                          name="password"
+                          id="password"
+                          placeholder="Password"
+                          data-rule="minlen:4"
+                          data-msg="Please enter at least 4 chars"
                           onChange={formik.handleChange}
                         />
-                        <div className="validate" />
-                        {formik.errors.name ? (
-                          <p>{formik.errors.name}</p>
+                        {formik.errors.password ? (
+                          <p>{formik.errors.password}</p>
                         ) : null}
+                        <div className="validate" />
                       </div>
-                    ) : null}
-                    {userType === "Login" || userType === "Signup" ? (
-                      <>
-                        <div className="form-group mt-3 mt-md-0">
-                          <input
-                            type="email"
-                            className="form-control"
-                            name="email"
-                            id="email"
-                            placeholder="Your Email"
-                            data-rule="email"
-                            data-msg="Please enter a valid email"
-                            onChange={formik.handleChange}
-                          />
-                          {formik.errors.email ? (
-                            <p>{formik.errors.email}</p>
-                          ) : null}
-                          <div className="validate" />
-                        </div>
-                        <div className="form-group mt-3 mt-md-0">
-                          <input
-                            type="password"
-                            className="form-control"
-                            name="password"
-                            id="password"
-                            placeholder="Password"
-                            data-rule="minlen:4"
-                            data-msg="Please enter at least 4 chars"
-                            onChange={formik.handleChange}
-                          />
-                          {formik.errors.password ? (
-                            <p>{formik.errors.password}</p>
-                          ) : null}
-                          <div className="validate" />
-                        </div>
-                      </>
-                    ) : null}
+                    </>
+                  ) : null}
                   {userType === "forgotPassword" ? (
                     <>
-                      <div className="text-center">
-                        <button
-                          className="appointment-btn border-0 m-0"
-                          type="button"
-                        >
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="border-1" type="button" endIcon={<SmsOutlinedIcon />}
+                          onClick={() => setUserType("Login")} >
                           Send OTP
-                        </button>
-                      </div>
-                      <div className="text-center">
-                        <button
-                          className="appointment-btn border-0 ms-0 mt-3"
-                          type="submit"
-                          onClick={() => setUserType("Login")}
-                        >
+                        </Button>
+                      </Stack>
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="border-1" type="submit" endIcon={<ExitToAppIcon />}
+                          onClick={() => setUserType("Login")} >
                           Login
-                        </button>
-                      </div>
+                        </Button>
+                      </Stack>
                     </>
                   ) : userType === "Login" ? (
                     <>
-                      <div className="text-center">
-                        <button
-                          className="appointment-btn border-0 m-0"
-                          type="submit"
-                        >
+                      <Stack direction="row" spacing={2} className="justify-content-end">
+                        <Button color="success" className="border-1" type="submit"
+                          onClick={() => setUserType("forgotPassword")} >
+                          Forgot Password ?
+                        </Button>
+                      </Stack>
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="border-1" type="submit" endIcon={<ExitToAppIcon />}
+                          onClick={() => setUserType("Login")} >
                           Login
-                        </button>
-                      </div>
-                      <div className="text-center">
-                        <button
-                          className="appointment-btn border-0 ms-0 mt-3"
-                          type="button"
-                          onClick={() => setUserType("forgotPassword")}
-                        >
-                          Forgot Password
-                        </button>
-                      </div>
-                      <div className="text-center pt-2">
-                        <p>Create a new account </p>
-                        <button
-                          className="appointment-btn border-0 m-0"
-                          type="button"
-                          onClick={() => setUserType("Signup")}
-                        >
+                        </Button>
+                      </Stack>
+                      <p className="text-center pt-2">Create a new account </p>
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="border-1 m-0" type="submit" endIcon={<LogoutIcon />}
+                          onClick={() => setUserType("Signup")} >
                           Sign Up
-                        </button>
-                      </div>
+                        </Button>
+                      </Stack>
                     </>
                   ) : (
                     <>
-                      <div className="text-center">
-                        <button
-                          className="appointment-btn border-0 m-0"
-                          type="submit"
-                        >
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="appointment-btn border-1 m-0" type="submit" endIcon={<LogoutIcon />}
+                          onClick={() => setUserType("Signup")}>
                           Sign Up
-                        </button>
-                      </div>
-                      <div className="text-center pt-2">
-                        <p>Already have an account </p>
-                        <button
-                          className="appointment-btn border-0 m-0"
-                          type="button"
-                          onClick={() => setUserType("Login")}
-                        >
+                        </Button>
+                      </Stack>
+                      <p className="text-center pt-2">Already have an account </p>
+                      <Stack direction="row" spacing={2} className="justify-content-center mt-2">
+                        <Button variant="contained" className="border-1" type="submit" endIcon={<ExitToAppIcon />}
+                          onClick={() => setUserType("Login")} >
                           Login
-                        </button>
-                      </div>
+                        </Button>
+                      </Stack>
                     </>
                   )}
                 </Form>
