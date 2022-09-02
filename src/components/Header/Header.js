@@ -37,6 +37,9 @@ function Header(props) {
                                             <NavLink to={"/products"} className="active">Products</NavLink>
                                         </li>
                                         <li>
+                                            <NavLink to={"/category"} className="active">Category</NavLink>
+                                        </li>
+                                        <li>
                                             <NavLink to={"/single-product"} className="active">Single_Product</NavLink>
                                         </li>
                                         <li>

@@ -9,6 +9,7 @@ import Contact from './container/Contact/Contact';
 import Products from './container/Products/Products';
 import Single_Product from './container/Single_Product/Single_Product';
 import Login from './container/Login/Login';
+import Category from './container/Category/Category';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path={"/about"} component={About} />
         <Route exact path={"/contact"} component={Contact} />
         <Route exact path={"/products"} component={Products} />
+        <Route exact path={"/category"} component={Category} />
         <Route exact path={"/single-product"} component={Single_Product} />
         <Route exact path={"/login"} component={Login} />
       </Switch>
