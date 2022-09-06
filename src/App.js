@@ -10,6 +10,7 @@ import Products from './container/Products/Products';
 import Single_Product from './container/Single_Product/Single_Product';
 import Login from './container/Login/Login';
 import Category from './container/Category/Category';
+import Categ_admin from './adminpanel/container/Categ_admin'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path={"/"} component={Home} />
         <Route exact path={"/about"} component={About} />
         <Route exact path={"/contact"} component={Contact} />
+        <Route exact path={"/catagory_admin"} component={Categ_admin} />
         <Route exact path={"/products"} component={Products} />
         <Route exact path={"/category"} component={Category} />
         <Route exact path={"/single-product"} component={Single_Product} />
