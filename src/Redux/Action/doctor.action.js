@@ -11,7 +11,7 @@ export const doctordata = () => async (dispatch) => {
   try {
     dispatch(loadingdoctor());
 
-    const querySnapshot = await getDocs(collection(db, "doctor"));
+    const querySnapshot = await getDocs(collection(db, "Catagory"));
     let data = [];
     querySnapshot.forEach((doc) => {
       data.push({ id: doc.id, ...doc.data() })
@@ -28,42 +28,36 @@ export const postdoctordata = (data) => async (dispatch) => {
   try {
     dispatch(loadingdoctor());
 
-    const rendomste = Math.floor(Math.random() * 1000000).toString();
-    const storageRef = ref(storade, 'doctor/' + rendomste);
+    const randomName = Math.floor(Math.random() * 1000000).toString();
+    const storageRef = ref(storade, 'Catagory/' + randomName);
 
     uploadBytes(storageRef, data.url).then((snapshot) => {
       getDownloadURL(snapshot.ref)
         .then(async (url) => {
-          const docRef = await addDoc(collection(db, "doctor"), {
-            name: data.name,
-            email: data.email,
-            sallery: data.sallery,
-            post: data.post,
-            experience: data.experience,
-            url: url,
-            fileName: rendomste,
+          const docRef = await addDoc(collection(db, "Catagory"), {
+            catagory_name : data.catagory_name,
+            catagory_price : data.catagory_price,
+            catagory_list : data.catagory_list,
+            url : url,
+            FileName:randomName
           });
 
           dispatch({
             type: Actiontype.POST_DOCTOR,
             payload: {
               id: docRef.id,
-              name: data.name,
-              email: data.email,
-              sallery: data.sallery,
-              post: data.post,
-              experience: data.experience,
-              url: url,
-              fileName: rendomste,
+              catagory_name : data.catagory_name,
+              catagory_price : data.catagory_price,
+              catagory_list : data.catagory_list,
+              url : url,   
+              FileName:randomName
             }
           })
         })
-      console.log('Uploaded a blob or file!');
     });
 
   } catch (error) {
     dispatch(errordoctor(error.message));
-
     console.error("Error adding document: ", error);
   }
 };
@@ -73,18 +67,15 @@ export const deletedoctor = (data) => async (dispatch) => {
   try {
     dispatch(loadingdoctor())
 
-    const doctorRef = ref(storage, 'doctor/' + data.fileName);
+    const doctorRef = ref(storage, 'Catagory/' + data.fileName);
     deleteObject(doctorRef)
       .then(async () => {
-        await deleteDoc(doc(db, "doctor", data.id));
+        await deleteDoc(doc(db, "Catagory", data.id));
         dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.id })
       })
       .catch((error) => {
         dispatch(errordoctor(error.message));
       });
-
-    // await deleteDoc(doc(db, "doctor", id));
-    // dispatch({type: Actiontype.DELETE_DOCTOR, payload:id })
 
   } catch (error) {
     dispatch(errordoctor(error.message));
@@ -98,44 +89,35 @@ export const updatedoctor = (data) => async (dispatch) => {
     if (typeof data.url === "string") {
       console.log('upload data')
       await updateDoc(updataRef, {
-        name: data.name,
-        email: data.email,
-        sallery: data.sallery,
-        post: data.post,
-        experience: data.experience,
-        fileName: data.fileName,
-        url: data.url
+        catagory_name : data.catagory_name,
+        catagory_price : data.catagory_price,
+        catagory_list : data.catagory_list,
+        FileName:data.FileName,
+        url : data.url
       });
       dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data })
     } else {
-      const doctorRef = ref(storage, 'doctor/' + data.fileName);
+      const doctorRef = ref(storage, 'Catagory/' + data.fileName);
       deleteObject(doctorRef)
         .then(async () => {
-          const rendomste = Math.floor(Math.random() * 1000000).toString();
-          const storageRef = ref(storade, 'doctor/' + rendomste);
+          const randomName = Math.floor(Math.random() * 1000000).toString();
+          const storageRef = ref(storade, 'Catagory/' + randomName);
 
           uploadBytes(storageRef, data.url).then((snapshot) => {
             getDownloadURL(snapshot.ref)
               .then(async (url) => {
                 await updateDoc(updataRef, {
-                  name: data.name,
-                  email: data.email,
-                  sallery: data.sallery,
-                  post: data.post,
-                  experience: data.experience,
-                  fileName: rendomste,
-                  url: url
+                  catagory_name : data.catagory_name,
+                  catagory_price : data.catagory_price,
+                  catagory_list : data.catagory_list,
+                  FileName:randomName,
+                  url : url
                 });
-                dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: { ...data, fileName: rendomste, url: url } })
+                dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: { ...data, fileName: randomName, url: url } })
               })
           })
         })
     }
-    // setTimeout(function () {
-    //   return updatedoctordata(data)
-    //   .then((data) => dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data.data}))
-    //   .catch(error =>  dispatch(errordoctor(error.message)));
-    // },2000 )
 
   } catch (error) {
     dispatch(errordoctor(error.message));

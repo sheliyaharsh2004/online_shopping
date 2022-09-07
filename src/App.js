@@ -10,24 +10,33 @@ import Products from './container/Products/Products';
 import Single_Product from './container/Single_Product/Single_Product';
 import Login from './container/Login/Login';
 import Category from './container/Category/Category';
-import Categ_admin from './adminpanel/container/Categ_admin'
+import Catag_admin from './adminpanel/container/Categ_admin';
+import { Provider } from 'react-redux';
+import { counterStore } from "./Redux/Store";
+import { PersistGate } from 'redux-persist/integration/react'
 
 function App() {
+
+  let {store, persistor} = counterStore()
+
   return (
     <>
       <Header />
-      <Switch>
-        <Route exact path={"/"} component={Home} />
-        <Route exact path={"/about"} component={About} />
-        <Route exact path={"/contact"} component={Contact} />
-        <Route exact path={"/catagory_admin"} component={Categ_admin} />
-        <Route exact path={"/products"} component={Products} />
-        <Route exact path={"/category"} component={Category} />
-        <Route exact path={"/single-product"} component={Single_Product} />
-        <Route exact path={"/login"} component={Login} />
-      </Switch>
-      {/* <Home /> */}
-      <Footer />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Switch>
+            <Route exact path={"/"} component={Home} />
+            <Route exact path={"/about"} component={About} />
+            <Route exact path={"/contact"} component={Contact} />
+            <Route exact path={"/catagory_admin"} component={Catag_admin} />
+            <Route exact path={"/products"} component={Products} />
+            <Route exact path={"/category"} component={Category} />
+            <Route exact path={"/single-product"} component={Single_Product} />
+            <Route exact path={"/login"} component={Login} />
+          </Switch>
+          <Footer/>
+        </PersistGate>
+      </Provider>
     </>
   );
 }

@@ -1,150 +1,119 @@
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { DataGrid, renderActionsCell } from "@mui/x-data-grid";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import { useDispatch, useSelector } from 'react-redux';
+import DialogTitle from '@mui/material/DialogTitle';
+import { DataGrid } from '@mui/x-data-grid';
+import * as yup from 'yup';
+import { Form, Formik, useFormik } from 'formik';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from "@mui/icons-material/Edit";
-import { useFormik, Formik, Form } from "formik";
-import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { CircleLoader } from "react-spinners";
-import { deletedoctor, doctordata, postdoctordata, postmedoctordata, updatedoctor } from "../../Redux/Action/doctor.action";
+import IconButton from '@mui/material/IconButton';
+import { deletedoctor, doctordata, postdoctordata, updatedoctor,} from '../../Redux/Action/doctor.action';
 
-function Categ_admin(props) {
+function Catag_admin(props) {
+
   const [open, setOpen] = useState(false);
-  const [Dopen, setDopen] = useState(false);
-  const [did, setdid] = useState("");
-  const [udate, setUdate] = useState(false);
-  const [uid , setUid] = useState('');
-  const [ufilename, setUfilename] = useState('')
-  const [filterdata, setFilterdata] = useState([]);
-  const [datamed, setDatamed] = useState([]);
+  const [docopen, setDocopen] = useState(false);
+  const [docdid, setDocdid] = useState('');
+  const [update, setUpdate] = useState('');
+  const [eid, setEid] = useState('');
   const dispatch = useDispatch();
 
-  const doctors = useSelector((state) => state.doctor);
+  const categ = useSelector(state => state.doctor);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setDopen(false);
-  };
-
-  const handleClickDopen = (id) => {
-    setdid(id);
-    setDopen(true);
+  const handleDClickOpen = (id) => {
+    setDocopen(true);
+    setDocdid(id);
   };
 
   const handleClickEditOpen = (params) => {
+    console.log(params.row);
     setOpen(true);
-    console.log(params)
+
     formik.setValues({
-      name: params.row.name,
-      email: params.row.email,
-      sallery: params.row.sallery,
-      post: params.row.post,
-      experience: params.row.experience,
-      url:params.row.url,
-    });
-    setUid(params.row.id)
-    setUfilename(params.row.fileName)
-    setUdate(true);
+      ...params.row,
+      file: params.row.url
+    })
+
+    setEid(params.id);
+    setUpdate(true);
   };
 
-  const handleSubmit = (values) => {
-    // let data = {
-    //   name: values.name,
-    //   email: values.email,
-    //   sallery: values.sallery,
-    //   post: values.post,
-    //   experience: values.experience,
-    //   upload: values.upload,
-    // };
-    dispatch(postdoctordata(values))
+  const handleClose = () => {
     setOpen(false);
-    getData();
+    setDocopen(false);
   };
-  
+
   let schema = yup.object().shape({
-    name: yup.string().required("Please enter name"),
-    email: yup.string().email("Please enter valid name").required("Please enter eamil"),
-    sallery: yup.string().required("Please enter sallery"),
-    post: yup.string().required("Please enter Post"),
-    experience: yup.string().required("Please enter experience"),
-    url:yup.mixed().required(),
+    categ_name: yup.string().required("Please enter name"),
+    categ_price: yup.string().required("Please enter Price"),
+    file: yup.mixed().required("please upload file")
   });
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      sallery: "",
-      post: "",
-      experience: "",
-      url: "",
+      categ_name: '',
+      categ_price: '',
+      file: ''
     },
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
-      if (udate) {
-        Updata(values);
+
+      if (update) {
+        handleEdit(values)
       } else {
-        handleSubmit(values);
+        dispatch(postdoctordata(values))
+
+        handleClose();
+        getData();
+        resetForm();
       }
-      resetForm();
-    },
+    }
   });
 
-  const Updata = (values) => {
-
-    const data ={
-      id:uid,
-      fileName:ufilename,
-      ...values
-    }
-
-    dispatch(updatedoctor(data))
+  const handleEdit = (values) => {
+    dispatch(updatedoctor(values))
 
     getData();
     setOpen(false);
-    setUdate(false);
-    setdid();
-  };
-  
+    setUpdate(false);
+    setEid();
+  }
+
   const getData = () => {
-    setDatamed(doctors.doctor);
-  };
+  }
+
+  useEffect(
+    () => {
+      dispatch(doctordata())
+      getData();
+    },
+    [])
 
   const handleDelete = () => {
-    dispatch(deletedoctor(did))
+    dispatch(deletedoctor(docdid))
 
     getData();
-    setDopen(false);
-  };
+    setDocopen(false);
+  }
 
-  useEffect(() => {
-    dispatch(doctordata());
-    getData();
-  }, []);
 
   const columns = [
-    { field: "Category name", headerName: "Name", width: 150 },
-    { field: "Category", headerName: "Email", width: 200 },
-    { field: "Category", headerName: "Sallery", width: 90 },
-    { field: "post", headerName: "Post", width: 130 },
-    { field: "experience", headerName: "experience", width: 100 },
-    { 
-      field: "url",
-      headerName: "Image",
-      width: 100,
+    { field: 'categ_name', headerName: 'categ Name', width: 130 },
+    { field: 'categ_price', headerName: 'categ Price', width: 130 },
+    {
+      field: 'file', headerName: 'Image', width: 130,
       renderCell: (params) => (
-        <img src={params.row.url}  width="50" height={50}/>
+        <img src={params.row.url} width="100" height={100} />
       )
     },
     {
@@ -156,8 +125,7 @@ function Categ_admin(props) {
           <>
             <IconButton
               className="border-primary"
-              onClick={() => handleClickDopen(params.row)}
-            >
+              onClick={() => handleDClickOpen(params.row)}>
               <DeleteIcon />
             </IconButton>
           </>
@@ -180,542 +148,97 @@ function Categ_admin(props) {
     },
   ];
 
-  const handlesearch = (Dr) => {
-    let medsearch = JSON.parse(localStorage.getItem("doctor"))
-      let fdata = medsearch.filter((f) => (
-
-        f.name.toString().includes(Dr) ||
-        f.email.toString().includes(Dr) ||
-        f.sallery.toString().includes(Dr) ||
-        f.post.toString().includes(Dr) ||
-        f.experience.toString().includes(Dr)
-      ))
-      setFilterdata(fdata)
-      console.log(fdata);
-      console.log(Dr);
-  }
-
-  const filter = filterdata.length > 0 ? filterdata : datamed
-
   return (
-    <>
-      {doctors.isLoading ? 
-        <CircleLoader
-          className="center"
-          color="rgba(46, 118, 209, 1)"
-          size={80}
-          speedMultiplier={1}
-        />
-        :
-        (doctors.error ?
-          <p>{doctors.error}</p>
-          :
-          <div>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="search"
-              name="search"
-              label="search"
-              type="text"
-              fullWidth
-              variant="standard"
-              onChange={(e) => handlesearch(e.target.value)}
-            />
-            <Button variant="outlined" onClick={handleClickOpen}>
-              Doctor Data Add
-            </Button>
-            <div className="mt-3" style={{ height: 400, width: "100%" }}>
-              <DataGrid
-                rows={doctors.doctor}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
-              />
-            </div>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Doctor Data</DialogTitle>
-              <Formik value={formik}>
-                <Form key={formik} onSubmit={formik.handleSubmit}>
-                  <DialogContent>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      name="name"
-                      value={formik.values.name}
-                      label="Name"
-                      type="text"
-                      fullWidth
-                      variant="standard"
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.name ? (
-                      <p className="errors">{formik.errors.name}</p>
-                    ) : null}
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="email"
-                      name="email"
-                      value={formik.values.email}
-                      label="Email"
-                      type="email"
-                      fullWidth
-                      variant="standard"
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.email ? (
-                      <p className="errors">{formik.errors.email}</p>
-                    ) : null}
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="sallery"
-                      name="sallery"
-                      value={formik.values.sallery}
-                      label="Sallery"
-                      type="text"
-                      fullWidth
-                      variant="standard"
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.sallery ? (
-                      <p className="errors">{formik.errors.sallery}</p>
-                    ) : null}
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="post"
-                      name="post"
-                      label="Post"
-                      value={formik.values.post}
-                      type="text"
-                      fullWidth
-                      variant="standard"
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.post ? (
-                      <p className="error">{formik.errors.post}</p>
-                    ) : null}
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="experience"
-                      name="experience"
-                      value={formik.values.experience}
-                      label="Experience"
-                      type="text"
-                      fullWidth
-                      variant="standard"
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.experience ? (
-                      <p className="errors">{formik.errors.experience}</p>
-                    ) : null}
-                    <input
-                      autoFocus
-                      margin="dense"
-                      id="url"
-                      label="url"
-                      name="url"
-                      type="file"
-                      onChange={(e)=>formik.setFieldValue('url',e.target.files[0])}
-                    />
-                    {formik.errors.url ? (
-                      <p className="errors">{formik.errors.url}</p>
-                    ) : null}
-                    <DialogActions>
-                      <Button onClick={handleClose}>Cancel</Button>
-                      <Button type="submit">Submit</Button>
-                    </DialogActions>
-                  </DialogContent>
-                </Form>
-              </Formik>
-            </Dialog>      
-            <Dialog
-              open={Dopen}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Are You Sure Delete Data?"}
-              </DialogTitle>
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={() => handleDelete()} autoFocus>
-                  yes
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
-        )
-      }
-    </>
+    <div style={{marginTop : "150px"}}>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Add Product
+      </Button>
+      <div>
+        <div className="mt-3" style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={categ.doctor}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+        </div>
+        <div>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Empoyee Data</DialogTitle>
+            <Formik value={formik}>
+              <Form key={formik} onSubmit={formik.handleSubmit}>
+                <DialogContent>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="categ_name"
+                    name="categ_name"
+                    value={formik.values.categ_name}
+                    label="categ Name"
+                    fullWidth
+                    variant="standard"
+                    onChange={formik.handleChange}
+                  />
+                  {
+                    formik.errors.categ_name ? <p>{formik.errors.categ_name}</p> : null
+                  }
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="categ_price"
+                    name="categ_price"
+                    value={formik.values.categ_price}
+                    label="categ price"
+                    fullWidth
+                    variant="standard"
+                    onChange={formik.handleChange}
+                  />
+                  {
+                    formik.errors.categ_price ? <p>{formik.errors.categ_price}</p> : null
+                  }
+                  <input
+                    autoFocus
+                    margin="dense"
+                    type="file"
+                    id="file"
+                    name="file"
+                    label="Upload File"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => formik.setFieldValue('file', e.target.files[0])}
+                  />
+                  {
+                    formik.errors.file ? <p>{formik.errors.file}</p> : null
+                  }
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button type="submit">Submit</Button>
+                </DialogActions>
+              </Form>
+            </Formik>
+          </Dialog>
+          <Dialog
+            open={docopen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are You Sure Delete Data?"}
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={handleClose}>No</Button>
+              <Button onClick={handleDelete} autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default Categ_admin;
-
-
-// import * as React from 'react';
-// import PropTypes from 'prop-types';
-// import { alpha } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
-// import TableRow from '@mui/material/TableRow';
-// import TableSortLabel from '@mui/material/TableSortLabel';
-// import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
-// import Paper from '@mui/material/Paper';
-// import Checkbox from '@mui/material/Checkbox';
-// import IconButton from '@mui/material/IconButton';
-// import Tooltip from '@mui/material/Tooltip';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Switch from '@mui/material/Switch';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import FilterListIcon from '@mui/icons-material/FilterList';
-// import { visuallyHidden } from '@mui/utils';
-
-// function createData(name, calories, fat, carbs, protein) {
-//   return {
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//   };
-// }
-
-// const rows = [
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Donut', 452, 25.0, 51, 4.9),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-//   createData('Honeycomb', 408, 3.2, 87, 6.5),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Jelly Bean', 375, 0.0, 94, 0.0),
-//   createData('KitKat', 518, 26.0, 65, 7.0),
-//   createData('Lollipop', 392, 0.2, 98, 0.0),
-//   createData('Marshmallow', 318, 0, 81, 2.0),
-//   createData('Nougat', 360, 19.0, 9, 37.0),
-//   createData('Oreo', 437, 18.0, 63, 4.0),
-// ];
-
-// function descendingComparator(a, b, orderBy) {
-//   if (b[orderBy] < a[orderBy]) {
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// }
-
-// function getComparator(order, orderBy) {
-//     return order === 'desc'
-//     ? (a, b) => descendingComparator(a, b, orderBy)
-//     : (a, b) => -descendingComparator(a, b, orderBy);
-// }
-
-// // This method is created for cross-browser compatibility, if you don't
-// // need to support IE11, you can use Array.prototype.sort() directly
-// function stableSort(array, comparator) {
-//     const stabilizedThis = array.map((el, index) => [el, index]);
-//     stabilizedThis.sort((a, b) => {
-//         const order = comparator(a[0], b[0]);
-//         if (order !== 0) {
-//           return order;
-//         }
-//         return a[1] - b[1];
-//     });
-//     return stabilizedThis.map((el) => el[0]);
-// }
-
-// const headCells = [
-//   {
-//     id: 'name',
-//     numeric: false,
-//     disablePadding: true,
-//     label: 'Category name',
-//   },
-//   {
-//     id: 'calories',
-//     numeric: true,
-//     disablePadding: false,
-//     label: 'Category price',
-//   },
-//   {
-//     id: 'fat',
-//     numeric: true,
-//     disablePadding: false,
-//     label: 'Category t',
-//   },
-//   {
-//     id: 'carbs',
-//     numeric: true,
-//     disablePadding: false,
-//     label: 'Carbs',
-//   },
-//   {
-//     id: 'protein',
-//     numeric: true,
-//     disablePadding: false,
-//     label: 'Protein',
-//   },
-// ];
-
-// function EnhancedTableHead(props) {
-//     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-//     props;
-//     const createSortHandler = (property) => (event) => {
-//         onRequestSort(event, property);
-//     };
-
-//     return (
-//         <TableHead>
-//             <TableRow>
-//                 <TableCell padding="checkbox">
-//                     <Checkbox
-//                         color="primary"
-//                         indeterminate={numSelected > 0 && numSelected < rowCount}
-//                         checked={rowCount > 0 && numSelected === rowCount}
-//                         onChange={onSelectAllClick}
-//                         inputProps={{
-//                           'aria-label': 'select all desserts',
-//                         }}
-//                     />
-//                 </TableCell>
-//                 {headCells.map((headCell) => (
-//                     <TableCell key={headCell.id} align={headCell.numeric ? 'right' : 'left'} padding={headCell.disablePadding ? 'none' : 'normal'} sortDirection={orderBy === headCell.id ? order : false}>
-//                         <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
-//                             {headCell.label}
-//                             {orderBy === headCell.id ? (
-//                                 <Box component="span" sx={visuallyHidden}>
-//                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-//                                 </Box>
-//                             ) : null}
-//                         </TableSortLabel>
-//                     </TableCell>
-//                 ))}
-//             </TableRow>
-//         </TableHead>
-//     );
-// }
-
-// EnhancedTableHead.propTypes = {
-//     numSelected: PropTypes.number.isRequired,
-//     onRequestSort: PropTypes.func.isRequired,
-//     onSelectAllClick: PropTypes.func.isRequired,
-//     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-//     orderBy: PropTypes.string.isRequired,
-//     rowCount: PropTypes.number.isRequired,
-// };
-
-// const EnhancedTableToolbar = (props) => {
-//     const { numSelected } = props;
-
-//     return (
-//         <Toolbar
-//             sx={{
-//                 pl: { sm: 2 },
-//                 pr: { xs: 1, sm: 1 },
-//                 ...(numSelected > 0 && {
-//                 bgcolor: (theme) =>
-//                     alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-//                 }),
-//             }}>
-//             {numSelected > 0 ? (
-//                 <Typography
-//                     sx={{ flex: '1 1 100%' }}
-//                     color="inherit"
-//                     variant="subtitle1"
-//                     component="div">
-//                     {numSelected} selected
-//                 </Typography>
-//                 ) : (
-//                 <Typography
-//                     sx={{ flex: '1 1 100%' }}
-//                     variant="h6"
-//                     id="tableTitle"
-//                     component="div">
-//                     Nutrition
-//                 </Typography>
-//             )}
-
-//             {numSelected > 0 ? (
-//                 <Tooltip title="Delete">
-//                     <IconButton>
-//                         <DeleteIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//                 ) : (
-//                 <Tooltip title="Filter list">
-//                     <IconButton>
-//                         <FilterListIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//             )}
-//         </Toolbar>
-//     );
-// };
-
-// EnhancedTableToolbar.propTypes = {
-//   numSelected: PropTypes.number.isRequired,
-// };
-
-// export default function EnhancedTable() {
-//     const [order, setOrder] = React.useState('asc');
-//     const [orderBy, setOrderBy] = React.useState('calories');
-//     const [selected, setSelected] = React.useState([]);
-//     const [page, setPage] = React.useState(0);
-//     const [dense, setDense] = React.useState(false);
-//     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-//     const handleRequestSort = (event, property) => {
-//         const isAsc = orderBy === property && order === 'asc';
-//         setOrder(isAsc ? 'desc' : 'asc');
-//         setOrderBy(property);
-//     };
-
-//     const handleSelectAllClick = (event) => {
-//         if (event.target.checked) {
-//           const newSelected = rows.map((n) => n.name);
-//           setSelected(newSelected);
-//           return;
-//         }
-//         setSelected([]);
-//     };
-
-//     const handleClick = (event, name) => {
-//         const selectedIndex = selected.indexOf(name);
-//         let newSelected = [];
-
-//         if (selectedIndex === -1) {
-//             newSelected = newSelected.concat(selected, name);
-//         } else if (selectedIndex === 0) {
-//             newSelected = newSelected.concat(selected.slice(1));
-//         } else if (selectedIndex === selected.length - 1) {
-//             newSelected = newSelected.concat(selected.slice(0, -1));
-//         } else if (selectedIndex > 0) {
-//             newSelected = newSelected.concat(
-//                 selected.slice(0, selectedIndex),
-//                 selected.slice(selectedIndex + 1),
-//             );
-//         }
-
-//         setSelected(newSelected);
-//     };
-
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//     };
-
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(parseInt(event.target.value, 10));
-//         setPage(0);
-//     };
-
-//     const handleChangeDense = (event) => {
-//         setDense(event.target.checked);
-//     };
-
-//     const isSelected = (name) => selected.indexOf(name) !== -1;
-
-//     // Avoid a layout jump when reaching the last page with empty rows.
-//     const emptyRows =
-//     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-//     return (
-//         <Box sx={{ width: '100%' }}>
-//             <Paper sx={{ width: '100%', mb: 2 }}>
-//                 <EnhancedTableToolbar numSelected={selected.length} />
-//                 <TableContainer>
-//                     <Table
-//                         sx={{ minWidth: 750 }}
-//                         aria-labelledby="tableTitle"
-//                         size={dense ? 'small' : 'medium'}>
-//                         <EnhancedTableHead
-//                             numSelected={selected.length}
-//                             order={order}
-//                             orderBy={orderBy}
-//                             onSelectAllClick={handleSelectAllClick}
-//                             onRequestSort={handleRequestSort}
-//                             rowCount={rows.length}
-//                         />
-//                         <TableBody>
-//                             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-//                             rows.slice().sort(getComparator(order, orderBy)) */}
-//                             {stableSort(rows, getComparator(order, orderBy))
-//                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//                             .map((row, index) => {
-//                                 const isItemSelected = isSelected(row.name);
-//                                 const labelId = `enhanced-table-checkbox-${index}`;
-//                                 return (
-//                                     <TableRow
-//                                         hover
-//                                         onClick={(event) => handleClick(event, row.name)}
-//                                         role="checkbox"
-//                                         aria-checked={isItemSelected}
-//                                         tabIndex={-1}
-//                                         key={row.name}
-//                                         selected={isItemSelected}>
-//                                         <TableCell padding="checkbox">
-//                                             <Checkbox
-//                                                 color="primary"
-//                                                 checked={isItemSelected}
-//                                                 inputProps={{
-//                                                   'aria-labelledby': labelId,
-//                                                 }}
-//                                             />
-//                                         </TableCell>
-//                                         <TableCell
-//                                             component="th"
-//                                             id={labelId}
-//                                             scope="row"
-//                                             padding="none">
-//                                             {row.name}
-//                                         </TableCell>
-//                                         <TableCell align="right">{row.calories}</TableCell>
-//                                         <TableCell align="right">{row.fat}</TableCell>
-//                                         <TableCell align="right">{row.carbs}</TableCell>
-//                                         <TableCell align="right">{row.protein}</TableCell>
-//                                     </TableRow>
-//                                 );
-//                             })}
-//                             {emptyRows > 0 && (
-//                                 <TableRow
-//                                     style={{
-//                                         height: (dense ? 33 : 53) * emptyRows,
-//                                     }}>
-//                                     <TableCell colSpan={6} />
-//                                 </TableRow>
-//                             )}
-//                         </TableBody>
-//                     </Table>
-//                 </TableContainer>
-//                 <TablePagination
-//                     rowsPerPageOptions={[5, 10, 25]}
-//                     component="div"
-//                     count={rows.length}
-//                     rowsPerPage={rowsPerPage}
-//                     page={page}
-//                     onPageChange={handleChangePage}
-//                     onRowsPerPageChange={handleChangeRowsPerPage}
-//                 />
-//             </Paper>
-//             <FormControlLabel
-//                 control={<Switch checked={dense} onChange={handleChangeDense} />}
-//                 label="Dense padding"
-//             />
-//         </Box>
-//     );
-// }
+export default Catag_admin;
