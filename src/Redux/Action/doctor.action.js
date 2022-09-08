@@ -11,7 +11,7 @@ export const doctordata = () => async (dispatch) => {
   try {
     dispatch(loadingdoctor());
 
-    const querySnapshot = await getDocs(collection(db, "Catagory"));
+    const querySnapshot = await getDocs(collection(db, "category"));
     let data = [];
     querySnapshot.forEach((doc) => {
       data.push({ id: doc.id, ...doc.data() })
@@ -25,20 +25,19 @@ export const doctordata = () => async (dispatch) => {
 };
 
 export const postdoctordata = (data) => async (dispatch) => {
+  console.log(data);
   try {
     dispatch(loadingdoctor());
 
     const randomName = Math.floor(Math.random() * 1000000).toString();
-    const storageRef = ref(storade, 'Catagory/' + randomName);
+    const storageRef = ref(storade, 'category/'+randomName);
 
-    uploadBytes(storageRef, data.url).then((snapshot) => {
+    uploadBytes(storageRef, data.file).then((snapshot) => {
       getDownloadURL(snapshot.ref)
-        .then(async (url) => {
-          const docRef = await addDoc(collection(db, "Catagory"), {
-            catagory_name : data.catagory_name,
-            catagory_price : data.catagory_price,
-            catagory_list : data.catagory_list,
-            url : url,
+        .then(async (file) => {
+          const docRef = await addDoc(collection(db, "category"), {
+            categ_name : data.categ_name,
+            file : file,
             FileName:randomName
           });
 
@@ -46,10 +45,8 @@ export const postdoctordata = (data) => async (dispatch) => {
             type: Actiontype.POST_DOCTOR,
             payload: {
               id: docRef.id,
-              catagory_name : data.catagory_name,
-              catagory_price : data.catagory_price,
-              catagory_list : data.catagory_list,
-              url : url,   
+              categ_name : data.categ_name,
+              file : file,   
               FileName:randomName
             }
           })
@@ -63,14 +60,14 @@ export const postdoctordata = (data) => async (dispatch) => {
 };
 
 export const deletedoctor = (data) => async (dispatch) => {
-  console.log(data);
+  console.log(data.id);
   try {
     dispatch(loadingdoctor())
 
-    const doctorRef = ref(storage, 'Catagory/' + data.fileName);
-    deleteObject(doctorRef)
+    const fileRef = ref(storage, 'category/'+data.fileName);
+    deleteObject(fileRef)
       .then(async () => {
-        await deleteDoc(doc(db, "Catagory", data.id));
+        await deleteDoc(doc(db, "category", data.id));
         dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.id })
       })
       .catch((error) => {
@@ -85,35 +82,31 @@ export const deletedoctor = (data) => async (dispatch) => {
 export const updatedoctor = (data) => async (dispatch) => {
   try {
     dispatch(loadingdoctor())
-    const updataRef = doc(db, "doctor", data.id);
-    if (typeof data.url === "string") {
+    const updataRef = doc(db, "category", data.id);
+    if (typeof data.file === "string") {
       console.log('upload data')
       await updateDoc(updataRef, {
-        catagory_name : data.catagory_name,
-        catagory_price : data.catagory_price,
-        catagory_list : data.catagory_list,
+        categ_name : data.categ_name,
         FileName:data.FileName,
-        url : data.url
+        file : data.file
       });
       dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data })
     } else {
-      const doctorRef = ref(storage, 'Catagory/' + data.fileName);
-      deleteObject(doctorRef)
+      const fileRefupdate = ref(storage, 'category/'+data.fileName);
+      deleteObject(fileRefupdate)
         .then(async () => {
           const randomName = Math.floor(Math.random() * 1000000).toString();
-          const storageRef = ref(storade, 'Catagory/' + randomName);
+          const storageRef = ref(storade, 'category/'+randomName);
 
-          uploadBytes(storageRef, data.url).then((snapshot) => {
+          uploadBytes(storageRef, data.file).then((snapshot) => {
             getDownloadURL(snapshot.ref)
-              .then(async (url) => {
+              .then(async (file) => {
                 await updateDoc(updataRef, {
-                  catagory_name : data.catagory_name,
-                  catagory_price : data.catagory_price,
-                  catagory_list : data.catagory_list,
+                  categ_name : data.categ_name,
                   FileName:randomName,
-                  url : url
+                  file : file
                 });
-                dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: { ...data, fileName: randomName, url: url } })
+                dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: { ...data, fileName: randomName, file: file } })
               })
           })
         })

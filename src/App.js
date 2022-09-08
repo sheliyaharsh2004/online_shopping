@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { Route, Switch } from "react-router-dom";
 import './App.css';
 import Header from './components/Header/Header';
@@ -28,7 +27,7 @@ function App() {
             <Route exact path={"/"} component={Home} />
             <Route exact path={"/about"} component={About} />
             <Route exact path={"/contact"} component={Contact} />
-            <Route exact path={"/catagory_admin"} component={Catag_admin} />
+            <Route exact path={"/catag_admin"} component={Catag_admin} />
             <Route exact path={"/products"} component={Products} />
             <Route exact path={"/category"} component={Category} />
             <Route exact path={"/single-product"} component={Single_Product} />

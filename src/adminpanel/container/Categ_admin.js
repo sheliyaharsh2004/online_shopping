@@ -1,4 +1,3 @@
-// import React from 'react';
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -41,7 +40,7 @@ function Catag_admin(props) {
 
     formik.setValues({
       ...params.row,
-      file: params.row.url
+      file: params.row.file
     })
 
     setEid(params.id);
@@ -55,14 +54,14 @@ function Catag_admin(props) {
 
   let schema = yup.object().shape({
     categ_name: yup.string().required("Please enter name"),
-    categ_price: yup.string().required("Please enter Price"),
+    // categ_price: yup.string().required("Please enter Price"),
     file: yup.mixed().required("please upload file")
   });
 
   const formik = useFormik({
     initialValues: {
       categ_name: '',
-      categ_price: '',
+      // categ_price: '',
       file: ''
     },
     validationSchema: schema,
@@ -97,7 +96,7 @@ function Catag_admin(props) {
       dispatch(doctordata())
       getData();
     },
-    [])
+  []);
 
   const handleDelete = () => {
     dispatch(deletedoctor(docdid))
@@ -108,12 +107,12 @@ function Catag_admin(props) {
 
 
   const columns = [
-    { field: 'categ_name', headerName: 'categ Name', width: 130 },
-    { field: 'categ_price', headerName: 'categ Price', width: 130 },
+    { field: 'categ_name', headerName: 'Catagory Name', width: 130 },
+    // { field: 'categ_price', headerName: 'categ Price', width: 130 },
     {
-      field: 'file', headerName: 'Image', width: 130,
+      field: 'file', headerName: 'Catagory Image', width: 130,
       renderCell: (params) => (
-        <img src={params.row.url} width="100" height={100} />
+        <img src={params.row.file} width="100" height={100} />
       )
     },
     {
@@ -151,7 +150,7 @@ function Catag_admin(props) {
   return (
     <div style={{marginTop : "150px"}}>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Add Product
+        Add Catagory
       </Button>
       <div>
         <div className="mt-3" style={{ height: 400, width: '100%' }}>
@@ -183,7 +182,7 @@ function Catag_admin(props) {
                   {
                     formik.errors.categ_name ? <p>{formik.errors.categ_name}</p> : null
                   }
-                  <TextField
+                  {/* <TextField
                     autoFocus
                     margin="dense"
                     id="categ_price"
@@ -196,7 +195,7 @@ function Catag_admin(props) {
                   />
                   {
                     formik.errors.categ_price ? <p>{formik.errors.categ_price}</p> : null
-                  }
+                  } */}
                   <input
                     autoFocus
                     margin="dense"
