@@ -60,11 +60,11 @@ export const postdoctordata = (data) => async (dispatch) => {
 };
 
 export const deletedoctor = (data) => async (dispatch) => {
-  console.log(data.id);
+  console.log(data);
   try {
     dispatch(loadingdoctor())
 
-    const fileRef = ref(storage, 'category/'+data.fileName);
+    const fileRef = ref(storage, 'category/'+data.FileName);
     deleteObject(fileRef)
       .then(async () => {
         await deleteDoc(doc(db, "category", data.id));
@@ -92,7 +92,7 @@ export const updatedoctor = (data) => async (dispatch) => {
       });
       dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data })
     } else {
-      const fileRefupdate = ref(storage, 'category/'+data.fileName);
+      const fileRefupdate = ref(storage, 'category/'+data.FileName);
       deleteObject(fileRefupdate)
         .then(async () => {
           const randomName = Math.floor(Math.random() * 1000000).toString();

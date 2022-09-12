@@ -2,11 +2,11 @@ import * as ActionType from "../ActionType";
 
 export const initalstate = {
   isLoading: false,
-  doctor: [],
+  product: [],
   error: "",
 };
 
-export const doctorReducer = (state = initalstate, action) => {
+export const productReducer = (state = initalstate, action) => {
     switch (action.type) {
         case ActionType.LOADING_MEDICINE:
             return {
@@ -14,32 +14,32 @@ export const doctorReducer = (state = initalstate, action) => {
                 isLoading: true,
                 error: ""
             }
-        case ActionType.GET_DOCTOR:
+        case ActionType.GET_PRODUCT:
             return {
                 ...state,
                 isLoading: false,
-                doctor: action.payload,
+                product: action.payload,
                 error: ""
             }
-        case ActionType.POST_DOCTOR:
+        case ActionType.POST_PRODUCT:
             return {
                 ...state,
                 isLoading: false,
-                doctor: state.doctor.concat(action.payload),
+                product: state.product.concat(action.payload),
                 error: ""
             }
-        case ActionType.DELETE_DOCTOR:
+        case ActionType.DELETE_PRODUCT:
             return {
                 ...state,
                 isLoading: false,
-                doctor: state.doctor.filter((d , i) => d.id !== action.payload),
+                product: state.product.filter((d , i) => d.id !== action.payload),
                 error: ""
             }
-        case ActionType.UPDATE_DOCTOR:
+        case ActionType.UPDATE_PRODUCT:
             return {
                 ...state,
                 isLoading: false,
-                doctor: state.doctor.map((u) => {
+                product: state.product.map((u) => {
                     if (u.id === action.payload.id) {
                         return action.payload
                     }else{
@@ -52,7 +52,7 @@ export const doctorReducer = (state = initalstate, action) => {
             return {
                 ...state,
                 isLoading: false,
-                doctor: [],
+                product: [],
                 error: action.payload
                 }
             default:
