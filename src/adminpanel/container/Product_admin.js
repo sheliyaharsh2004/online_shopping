@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from '@mui/material/IconButton';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { deletedoctor, doctordata, postdoctordata, updatedoctor,} from '../../Redux/Action/doctor.action';
+import { deletedoctor, doctordata, postdoctordata, updatedoctor, } from '../../Redux/Action/doctor.action';
 
 function Product_admin(props) {
 
@@ -26,7 +26,7 @@ function Product_admin(props) {
 
   const product = useSelector(state => state.doctor);
 
-  const productdata = product.product ;
+  const productdata = product.product;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,7 +85,7 @@ function Product_admin(props) {
       }
     }
   });
-
+ console.log(formik.errors);
   const handleEdit = (values) => {
     dispatch(updatedoctor(values))
 
@@ -103,7 +103,7 @@ function Product_admin(props) {
       dispatch(doctordata())
       getData();
     },
-  []);
+    []);
 
   const handleDelete = () => {
     dispatch(deletedoctor(docdid))
@@ -157,19 +157,19 @@ function Product_admin(props) {
   ];
 
   return (
-    <div style={{marginTop : "150px"}}>
+    <div style={{ marginTop: "150px" }}>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Product
       </Button>
       <div>
         <div className="mt-3" style={{ height: 400, width: '100%' }}>
-            <DataGrid
-                rows={product.doctor}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
-            />
+          <DataGrid
+            rows={product.doctor}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
         </div>
         <div>
           <Dialog open={open} onClose={handleClose}>
@@ -177,80 +177,80 @@ function Product_admin(props) {
             <Formik value={formik}>
               <Form key={formik} onSubmit={formik.handleSubmit}>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="product_name"
-                        name="product_name"
-                        value={formik.values.product_name}
-                        label="product Name"
-                        fullWidth
-                        variant="standard"
-                        onChange={formik.handleChange}
-                    />
-                    {
-                        formik.errors.product_name ? <p>{formik.errors.product_name}</p> : null
-                    }
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="product_price"
-                        name="product_price"
-                        value={formik.values.product_price}
-                        label="product price"
-                        fullWidth
-                        variant="standard"
-                        onChange={formik.handleChange}
-                    />
-                    {
-                        formik.errors.product_price ? <p>{formik.errors.product_price}</p> : null
-                    }
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Product Type</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="product_list"
-                            name='product_list'
-                            value={formik.values.product_list}
-                            onChange={formik.handleChange}>
-                            {
-                                product.doctor.map((c) =>{
-                                    return(
-                                        <MenuItem value={c.categ_name}>{c.categ_name}</MenuItem>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </FormControl>
-                    {
-                        formik.errors.product_list ? <p>{formik.errors.product_list}</p> : null
-                    } 
-                     <TextField
-                        autoFocus
-                        margin="dense"
-                        id="product_description"
-                        name="product_description"
-                        value={formik.values.product_description}
-                        fullWidth
-                        variant="standard"
-                        onChange={formik.handleChange}
-                    />
-                    {
-                        formik.errors.product_description ? <p>{formik.errors.product_description}</p> : null
-                    } 
-                    <input
-                        autoFocus
-                        margin="dense"
-                        type="file"
-                        id="file"
-                        name="file"
-                        fullWidth
-                        variant="standard"
-                        onChange={(e) => formik.setFieldValue('file', e.target.files[0])}
-                    />
-                    {
-                        formik.errors.file ? <p>{formik.errors.file}</p> : null
-                    }
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="product_name"
+                    name="product_name"
+                    value={formik.values.product_name}
+                    label="product Name"
+                    fullWidth
+                    variant="standard"
+                    onChange={formik.handleChange}
+                  />
+                  {
+                    formik.errors.product_name ? <p>{formik.errors.product_name}</p> : null
+                  }
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="product_price"
+                    name="product_price"
+                    value={formik.values.product_price}
+                    label="product price"
+                    fullWidth
+                    variant="standard"
+                    onChange={formik.handleChange}
+                  />
+                  {
+                    formik.errors.product_price ? <p>{formik.errors.product_price}</p> : null
+                  }
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Product Type</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="product_list"
+                      name='product_list'
+                      value={formik.values.product_list}
+                      onChange={formik.handleChange}>
+                      {
+                        product.doctor.map((c) => {
+                          return (
+                            <MenuItem value={c.categ_name}>{c.categ_name}</MenuItem>
+                          )
+                        })
+                      }
+                    </Select>
+                  </FormControl>
+                  {
+                    formik.errors.product_list ? <p>{formik.errors.product_list}</p> : null
+                  }
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="product_description"
+                    name="product_description"
+                    value={formik.values.product_description}
+                    fullWidth
+                    variant="standard"
+                    onChange={formik.handleChange}
+                  />
+                  {
+                    formik.errors.product_description ? <p>{formik.errors.product_description}</p> : null
+                  }
+                  <input
+                    autoFocus
+                    margin="dense"
+                    type="file"
+                    id="file"
+                    name="file"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => formik.setFieldValue('file', e.target.files[0])}
+                  />
+                  {
+                    formik.errors.file ? <p>{formik.errors.file}</p> : null
+                  }
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>

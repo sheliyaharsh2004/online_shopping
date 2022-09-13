@@ -17,7 +17,7 @@ import Product_admin from "./adminpanel/container/Product_admin";
 
 function App() {
 
-  let {store, persistor} = counterStore()
+  let { store, persistor } = counterStore()
 
   return (
     <>
@@ -35,7 +35,7 @@ function App() {
             <Route exact path={"/single-product"} component={Single_Product} />
             <Route exact path={"/login"} component={Login} />
           </Switch>
-          <Footer/>
+          <Footer />
         </PersistGate>
       </Provider>
     </>

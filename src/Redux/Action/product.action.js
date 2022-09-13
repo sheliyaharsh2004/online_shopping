@@ -91,10 +91,10 @@ export const updatedoctor = (data) => async (dispatch) => {
         if (typeof data.file === "string") {
             console.log('upload data')
             await updateDoc(updataRef, {
-                product_name : data.product_name,
-                product_price : data.product_price,
-                product_list : data.product_list,
-                product_description : data.product_description,
+                product_name: data.product_name,
+                product_price: data.product_price,
+                product_list: data.product_list,
+                product_description: data.product_description,
                 FileName: data.FileName,
                 file: data.file
             });
@@ -110,10 +110,10 @@ export const updatedoctor = (data) => async (dispatch) => {
                         getDownloadURL(snapshot.ref)
                             .then(async (file) => {
                                 await updateDoc(updataRef, {
-                                    product_name : data.product_name,
-                                    product_price : data.product_price,
-                                    product_list : data.product_list,
-                                    product_description : data.product_description,
+                                    product_name: data.product_name,
+                                    product_price: data.product_price,
+                                    product_list: data.product_list,
+                                    product_description: data.product_description,
                                     FileName: randomName,
                                     file: file
                                 });
