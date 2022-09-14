@@ -6,7 +6,7 @@ import { BASE_URL } from "../../shared/baseurl";
 import * as Actiontype from "../ActionType";
 import storage from "../../Firebase";
 
-export const doctordata = () => async (dispatch) => {
+export const getProduct = () => async (dispatch) => {
 
     try {
         dispatch(loadingdoctor());
@@ -17,14 +17,14 @@ export const doctordata = () => async (dispatch) => {
             data.push({ id: doc.id, ...doc.data() })
         });
 
-        dispatch({ type: Actiontype.GET_DOCTOR, payload: data })
+        dispatch({ type: Actiontype.GET_PRODUCT, payload: data })
 
     } catch (error) {
         dispatch(errordoctor(error.message));
     }
 };
 
-export const postdoctordata = (data) => async (dispatch) => {
+export const addProductdata = (data) => async (dispatch) => {
     console.log(data);
     try {
         dispatch(loadingdoctor());
@@ -45,7 +45,7 @@ export const postdoctordata = (data) => async (dispatch) => {
                     });
 
                     dispatch({
-                        type: Actiontype.POST_DOCTOR,
+                        type: Actiontype.POST_PRODUCT,
                         payload: {
                             id: docRef.id,
                             product_name: data.product_name,
@@ -65,7 +65,7 @@ export const postdoctordata = (data) => async (dispatch) => {
     }
 };
 
-export const deletedoctor = (data) => async (dispatch) => {
+export const deletCatagorydata  = (data) => async (dispatch) => {
     try {
         dispatch(loadingdoctor())
 
@@ -73,7 +73,7 @@ export const deletedoctor = (data) => async (dispatch) => {
         deleteObject(fileRef)
             .then(async () => {
                 await deleteDoc(doc(db, "Product", data.id));
-                dispatch({ type: Actiontype.DELETE_DOCTOR, payload: data.id })
+                dispatch({ type: Actiontype.DELETE_PRODUCT, payload: data.id })
             })
             .catch((error) => {
                 dispatch(errordoctor(error.message));
@@ -84,7 +84,7 @@ export const deletedoctor = (data) => async (dispatch) => {
     }
 }
 
-export const updatedoctor = (data) => async (dispatch) => {
+export const updateCatagoryata = (data) => async (dispatch) => {
     try {
         dispatch(loadingdoctor())
         const updataRef = doc(db, "Product", data.id);
@@ -98,7 +98,7 @@ export const updatedoctor = (data) => async (dispatch) => {
                 FileName: data.FileName,
                 file: data.file
             });
-            dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: data })
+            dispatch({ type: Actiontype.UPDATE_PRODUCT, payload: data })
         } else {
             const fileRefupdate = ref(storage, 'Product/' + data.FileName);
             deleteObject(fileRefupdate)
@@ -117,7 +117,8 @@ export const updatedoctor = (data) => async (dispatch) => {
                                     FileName: randomName,
                                     file: file
                                 });
-                                dispatch({ type: Actiontype.UPDATE_DOCTOR, payload: { ...data, fileName: randomName, file: file } })
+                                dispatch({ type: Actiontype.UPDATE_PRODUCT
+                                    , payload: { ...data, fileName: randomName, file: file } })
                             })
                     })
                 })

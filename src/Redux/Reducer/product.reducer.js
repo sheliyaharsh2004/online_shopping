@@ -32,7 +32,7 @@ export const productReducer = (state = initalstate, action) => {
             return {
                 ...state,
                 isLoading: false,
-                product: state.product.filter((d , i) => d.id !== action.payload),
+                product: state.product.filter((d) => d.id !== action.payload),
                 error: ""
             }
         case ActionType.UPDATE_PRODUCT:

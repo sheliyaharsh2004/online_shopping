@@ -13,7 +13,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from '@mui/material/IconButton';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { deletedoctor, doctordata, postdoctordata, updatedoctor, } from '../../Redux/Action/doctor.action';
+import { addProductdata, deletCatagorydata, getProduct, updateCatagoryata } from '../../Redux/Action/product.action';
+import { doctordata } from '../../Redux/Action/doctor.action';
 
 function Product_admin(props) {
 
@@ -24,10 +25,10 @@ function Product_admin(props) {
   const [eid, setEid] = useState('');
   const dispatch = useDispatch();
 
-  const product = useSelector(state => state.doctor);
-
+  const categ = useSelector(state => state.doctor);
+  const product = useSelector(state => state.product);
   const productdata = product.product;
-
+ console.log(categ.doctor);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -56,8 +57,8 @@ function Product_admin(props) {
   };
 
   let schema = yup.object().shape({
-    Product_name: yup.string().required("Please enter name"),
-    Product_price: yup.string().required("Please enter Price"),
+    product_name: yup.string().required("Please enter name"),
+    product_price: yup.string().required("Please enter Price"),
     product_list: yup.string().required("Please enter product"),
     product_description: yup.string().required("Please enter product"),
     file: yup.mixed().required("please upload imagrs")
@@ -65,8 +66,8 @@ function Product_admin(props) {
 
   const formik = useFormik({
     initialValues: {
-      Product_name: '',
-      Product_price: '',
+      product_name: '',
+      product_price: '',
       product_list: '',
       product_description: '',
       file: ''
@@ -77,7 +78,7 @@ function Product_admin(props) {
       if (update) {
         handleEdit(values)
       } else {
-        dispatch(postdoctordata(values))
+        dispatch(addProductdata(values))
 
         handleClose();
         getData();
@@ -85,9 +86,9 @@ function Product_admin(props) {
       }
     }
   });
- console.log(formik.errors);
+  console.log(formik.errors);
   const handleEdit = (values) => {
-    dispatch(updatedoctor(values))
+    dispatch(updateCatagoryata(values))
 
     getData();
     setOpen(false);
@@ -100,13 +101,14 @@ function Product_admin(props) {
 
   useEffect(
     () => {
+      dispatch(getProduct())
       dispatch(doctordata())
       getData();
     },
     []);
 
   const handleDelete = () => {
-    dispatch(deletedoctor(docdid))
+    dispatch(deletCatagorydata(docdid))
 
     getData();
     setDocopen(false);
@@ -121,7 +123,7 @@ function Product_admin(props) {
     {
       field: 'file', headerName: 'Product Image', width: 130,
       renderCell: (params) => (
-        <img src={params.row.file} width="100" height={100} />
+        <img src={params.row.file} width="50" height={50} />
       )
     },
     {
@@ -164,7 +166,7 @@ function Product_admin(props) {
       <div>
         <div className="mt-3" style={{ height: 400, width: '100%' }}>
           <DataGrid
-            rows={product.doctor}
+            rows={productdata}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
@@ -205,7 +207,7 @@ function Product_admin(props) {
                   {
                     formik.errors.product_price ? <p>{formik.errors.product_price}</p> : null
                   }
-                  <FormControl fullWidth>
+                  <FormControl fullWidth className='mt-4'>
                     <InputLabel id="demo-simple-select-label">Product Type</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
@@ -214,7 +216,7 @@ function Product_admin(props) {
                       value={formik.values.product_list}
                       onChange={formik.handleChange}>
                       {
-                        product.doctor.map((c) => {
+                        categ.doctor.map((c) => {
                           return (
                             <MenuItem value={c.categ_name}>{c.categ_name}</MenuItem>
                           )
@@ -226,11 +228,13 @@ function Product_admin(props) {
                     formik.errors.product_list ? <p>{formik.errors.product_list}</p> : null
                   }
                   <TextField
+                    className='mt-3'
                     autoFocus
                     margin="dense"
                     id="product_description"
                     name="product_description"
                     value={formik.values.product_description}
+                    label="product description"
                     fullWidth
                     variant="standard"
                     onChange={formik.handleChange}

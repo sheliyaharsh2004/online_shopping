@@ -112,7 +112,7 @@ function Catag_admin(props) {
     {
       field: 'file', headerName: 'Catagory Image', width: 130,
       renderCell: (params) => (
-        <img src={params.row.file} width="100" height={100} />
+        <img src={params.row.file} width="50" height={50} />
       )
     },
     {
