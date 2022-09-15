@@ -160,9 +160,22 @@ function Product_admin(props) {
 
   return (
     <div style={{ marginTop: "150px" }}>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add Product
-      </Button>
+      <div className="page-heading" id="top">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="inner-content">
+                <h2>Product admin</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row flex-column align-items-center">
+        <Button variant="contained" className="border-1" type="submit" onClick={handleClickOpen}>
+          Add Product
+        </Button>
+      </div>
       <div>
         <div className="mt-3" style={{ height: 400, width: '100%' }}>
           <DataGrid
