@@ -2348,6 +2348,57 @@ responsive
   animation-delay: 0.66666s;
 }
 
+
+/* ==================== */
+
+section.catagory-view .row{
+  justify-content: space-around;
+}
+section.catagory-view {
+  margin-top: 1%;
+}
+.cat-view-box {
+  text-align: center;
+}
+section.catagory-view .row{
+justify-content: space-around;
+}
+h4.cat-box-title {
+  font-size: 18px;
+  margin: 3% 0;
+}
+.img-box img {
+  width: 250px;
+  overflow: hidden;
+  height: 350px;
+}
+.img-box {
+  height: 350px;
+  width: 250px;
+  margin: 0 auto;
+}
+.h4 {
+  font-size: 22px;
+  color: #2a2a2a;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.price {
+  margin-top: 5px;
+  font-size: 18px;
+  color: #a1a1a1;
+  font-weight: 500;
+  display: block;
+}
+.description-pro{
+  font-size: 14px;
+  color: #aaaaaa;
+  font-weight: 500;
+  display: block;
+  margin-top: 5px;
+}
+
+
 @-webkit-keyframes jumper {
   0% {
     opacity: 0;

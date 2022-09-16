@@ -5,8 +5,10 @@ import { getProduct } from '../../Redux/Action/product.action';
 
 function Products(props) {
     const [open, setOpen] = useState(false);
+
     const categ = useSelector(state => state.doctor);
     const product = useSelector(state => state.product);
+    
     const dispatch = useDispatch()
 
     const handleClickOpen = () => {
@@ -39,7 +41,7 @@ function Products(props) {
                 </div>
             </div>
             <section className="section" id="products">
-            <div className="container">
+                <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section-heading">
@@ -53,56 +55,51 @@ function Products(props) {
             <section className='catagory-view'>
                 <div className="container">
                     <div className="row">
-                        <a href="#" onClick={(e) => handleCatagory("All")}>
-                                <h4 className='cat-box-title'>All</h4>
-                        </a>
-                        {
-                            categ.doctor.map((c) => {
-                                return (
-                                    <a href="#" onClick={(e) => handleCatagory(c.categ_name)}>
-                                        <div className='cat-view-box'>
-                                            <div className='box-img'>
-                                                <img src={c.file} />
-                                            </div>
-                                            <h4 className='cat-box-title'>{c.categ_name}</h4>
-                                        </div>
-                                    </a>
-                                )
-                            })
-                        }
+                        <div className="col-12">
+                            <div className="item">
+                                <a href="#" onClick={(e) => handleCatagory("All")}>
+                                    <h4 className='cat-box-title'>All</h4>
+                                </a>
+                                {
+                                    categ.doctor.map((c) => {
+                                        return (
+                                            <a href="#" onClick={(e) => handleCatagory(c.categ_name)}>
+                                                <div className='row cat-view-box'>
+                                                    <div className='box-img'>
+                                                        {/* <img src={c.file} /> */}
+                                                    </div>
+                                                    <h4 className='cat-box-title'>{c.categ_name}</h4>
+                                                </div>
+                                            </a>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             <section className="product_section layout_padding">
                 <div className="container">
-                    <div className="heading_container heading_center">
+                    <div className="inner-content">
                         <h2>
-                            Our <span>products</span>
+                            Our<span>products</span>
                         </h2>
                     </div>
                     <div className="row">
                         {
                             product.product.map((e) => (
-                                <div className="col-sm-4">
-                                    <div className="hover-content">
-                                        <div className='row flex-column align-items-center'>
-                                            <li variant="contained" className="border-1" type="submit" onClick={handleClickOpen}>
-                                                <a href="single-product.html">
-                                                    <i className="fa fa-shopping-cart" />
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </div>
+                                <div className="col-sm-4 mt-4">
                                     <div className="img-box">
                                         <img src={e.file} />
                                     </div>
                                     <div className="detail-box">
-                                        <div className='pro-box-t'>
-                                            <h5 className='pro-name'>{e.product_name}</h5>
-                                            <h6>Price : {e.product_price}</h6>
+                                        <div className='productbox'>
+                                            <h4 className='name mt-2'>{e.product_name}</h4>
+                                            <div className='price'>Price : {e.product_price}</div>
+                                            {/* <p className='pro-type'>Catagory : {e.product_list}</p> */}
+                                            <p className='description-pro'>{e.product_description}</p>
                                         </div>
-                                        <p className='pro-type'>Catagory : {e.product_list}</p>
-                                        <p className='description-pro'>{e.product_description}</p>
                                     </div>
                                 </div>
                             ))
