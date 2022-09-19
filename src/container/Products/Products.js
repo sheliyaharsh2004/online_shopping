@@ -8,7 +8,7 @@ function Products(props) {
 
     const categ = useSelector(state => state.doctor);
     const product = useSelector(state => state.product);
-    
+
     const dispatch = useDispatch()
 
     const handleClickOpen = () => {
@@ -29,7 +29,7 @@ function Products(props) {
     return (
         <div>
             <div className="page-heading" id="top">
-                <div className="container">
+                <div className="container_fuild">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="inner-content">
@@ -57,23 +57,20 @@ function Products(props) {
                     <div className="row">
                         <div className="col-12">
                             <div className="item">
-                                <a href="#" onClick={(e) => handleCatagory("All")}>
-                                    <h4 className='cat-box-title'>All</h4>
-                                </a>
-                                {
-                                    categ.doctor.map((c) => {
-                                        return (
-                                            <a href="#" onClick={(e) => handleCatagory(c.categ_name)}>
-                                                <div className='row cat-view-box'>
-                                                    <div className='box-img'>
-                                                        {/* <img src={c.file} /> */}
-                                                    </div>
-                                                    <h4 className='cat-box-title'>{c.categ_name}</h4>
+                                <div className='cat-view-box'>
+                                    <div className='category_name'>
+                                    <a href="#" onClick={(e) => handleCatagory("All")}>All</a>
+                                    </div>
+                                    {
+                                        categ.doctor.map((c) => {
+                                            return (
+                                                <div className='category_name'>
+                                                    <a href="#" onClick={(e) => handleCatagory(c.id)}>{c.categ_name}</a>
                                                 </div>
-                                            </a>
-                                        )
-                                    })
-                                }
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -90,6 +87,20 @@ function Products(props) {
                         {
                             product.product.map((e) => (
                                 <div className="col-sm-4 mt-4">
+                                    <div className="option_container">
+                                        <div className="options">
+                                                <button>
+                                                    <a href className="">
+                                                        Add To Cart
+                                                    </a>
+                                                </button>
+                                                <button> 
+                                                    <a href className="">
+                                                        Buy Now
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </div>
                                     <div className="img-box">
                                         <img src={e.file} />
                                     </div>

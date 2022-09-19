@@ -118,7 +118,16 @@ function Product_admin(props) {
   const columns = [
     { field: 'product_name', headerName: 'Product Name', width: 130 },
     { field: 'product_price', headerName: 'Product Price', width: 130 },
-    { field: 'product_list', headerName: 'Product Type', width: 130 },
+    { field: 'product_list', headerName: 'Product Type', width: 130,
+      renderCell: (params) => {
+        productdata.map((x) => {
+          if(x.id === params.formattedValue){
+            console.log(x.id);
+            return <div>{x.categ_name}</div>
+          }
+        })
+      }
+    },
     { field: 'product_description', headerName: 'Product Description', width: 130 },
     {
       field: 'file', headerName: 'Product Image', width: 130,
@@ -231,7 +240,7 @@ function Product_admin(props) {
                       {
                         categ.doctor.map((c) => {
                           return (
-                            <MenuItem value={c.categ_name}>{c.categ_name}</MenuItem>
+                            <MenuItem value={c.id}>{c.categ_name}</MenuItem>
                           )
                         })
                       }
