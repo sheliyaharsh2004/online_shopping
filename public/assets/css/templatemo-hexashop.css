@@ -1603,7 +1603,7 @@ Products Page
 
 #products .section-heading {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   margin-top: 80px;
 }
 
@@ -2416,6 +2416,13 @@ justify-content: space-around;
   font-weight: 500;
   display: block;
 }
+.pro-list{
+  font-size: 14px;
+  color: #aaaaaa;
+  font-weight: 500;
+  display: block;
+  margin-top: 5px;
+}
 .description-pro{
   font-size: 14px;
   color: #aaaaaa;
@@ -2432,4 +2439,15 @@ justify-content: space-around;
 .category_name{
   margin-right: 50px;
   font-size: 22px;
+}
+.box{
+  height: auto;
+  /* width: 330px; */
+  background-color: #f9f9f9 !important;
+  border: 2px #191a20 !important;
+}
+
+.button{
+  display: flex !important;
+  justify-content: center;
 }

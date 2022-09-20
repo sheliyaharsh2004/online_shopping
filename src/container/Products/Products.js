@@ -5,22 +5,37 @@ import { getProduct } from '../../Redux/Action/product.action';
 
 function Products(props) {
     const [open, setOpen] = useState(false);
+    const [filterDataPro , setFilterDataPro] = useState([]);
 
     const categ = useSelector(state => state.doctor);
     const product = useSelector(state => state.product);
-
+    const productdata = product.product ;
     const dispatch = useDispatch()
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    // const handleClickOpen = () => {
+    //     setOpen(true);
+    // };
 
     const handleCatagory = (c) => {
-        let search = product.filter((I) => (
-            I.id.toString().includes(I) ||
-            I.product_list.toString().includes(I)
-        ))
+        console.log();
+        const filter = [];
+        if (c === "All") {
+            setFilterDataPro([])
+        }
+       productdata.filter((f) =>{
+           console.log(f.product_list);
+            if (c === f.product_list) {
+                filter.push(f);     
+            }
+        })
+        setFilterDataPro(filter)
+
     };
+
+    const finalpr = filterDataPro.length > 0 ? filterDataPro : productdata;
+
+
+
     useEffect(() => {
         dispatch(doctordata());
         dispatch(getProduct())
@@ -59,14 +74,16 @@ function Products(props) {
                             <div className="item">
                                 <div className='cat-view-box'>
                                     <div className='category_name'>
-                                    <a href="#" onClick={(e) => handleCatagory("All")}>All</a>
+                                    <a  onClick={(e) => handleCatagory("All")}>All</a>
                                     </div>
                                     {
                                         categ.doctor.map((c) => {
                                             return (
-                                                <div className='category_name'>
-                                                    <a href="#" onClick={(e) => handleCatagory(c.id)}>{c.categ_name}</a>
-                                                </div>
+                                                // <a href='#' onClick={(e) => handleCatagory(c.id)}>
+                                                    <div onClick={(e) => handleCatagory(c.id)} className='category_name'>
+                                                    {c.categ_name}
+                                                    </div>
+                                                // </a>
                                             )
                                         })
                                     }
@@ -85,22 +102,8 @@ function Products(props) {
                     </div>
                     <div className="row">
                         {
-                            product.product.map((e) => (
-                                <div className="col-sm-4 mt-4">
-                                    <div className="option_container">
-                                        <div className="options">
-                                                <button>
-                                                    <a href className="">
-                                                        Add To Cart
-                                                    </a>
-                                                </button>
-                                                <button> 
-                                                    <a href className="">
-                                                        Buy Now
-                                                    </a>
-                                                </button>
-                                            </div>
-                                        </div>
+                           finalpr.map((e) => (
+                                <div className="col-sm-4 mt-4 mb-4 box">
                                     <div className="img-box">
                                         <img src={e.file} />
                                     </div>
@@ -108,8 +111,18 @@ function Products(props) {
                                         <div className='productbox'>
                                             <h4 className='name mt-2'>{e.product_name}</h4>
                                             <div className='price'>Price : {e.product_price}</div>
-                                            {/* <p className='pro-type'>Catagory : {e.product_list}</p> */}
+                                            <p className='pro-list'>Catagory : {e.product_list}</p>
                                             <p className='description-pro'>{e.product_description}</p>
+                                        </div>
+                                    </div>
+                                    <div className="button">
+                                        <div className="total">
+                                                <div className="main-border-button mt-3" type="button">
+                                                    <a href="#">Add To Cart</a>
+                                                    <a className='ml-4' href="#">Buy Now</a>
+                                                </div>
+                                                <div className="main-border-button" type="button">
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
