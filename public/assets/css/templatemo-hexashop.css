@@ -2443,11 +2443,27 @@ justify-content: space-around;
 .box{
   height: auto;
   /* width: 330px; */
-  background-color: #f9f9f9 !important;
-  border: 2px #191a20 !important;
+  /* background-color: #f9f9f9 !important; */
+  border: 1px solid #191a20;
 }
 
 .button{
   display: flex !important;
+  justify-content: center;
+}
+
+
+.product_details{
+  padding: 100px 0 50px;
+}
+.product_details .price{
+  margin: 20px 0;
+}
+.product_details .addcart{
+  display: flex;
+  justify-content: space-around;
+}
+.product_details .product_img{
+  display: flex;
   justify-content: center;
 }

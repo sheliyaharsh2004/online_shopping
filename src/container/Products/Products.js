@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { doctordata } from '../../Redux/Action/doctor.action';
 import { getProduct } from '../../Redux/Action/product.action';
+import { useHistory } from 'react-router-dom';
 
 function Products(props) {
     const [open, setOpen] = useState(false);
+    const [quantity, setQuantity] = useState(1);
     const [filterDataPro , setFilterDataPro] = useState([]);
 
     const categ = useSelector(state => state.doctor);
     const product = useSelector(state => state.product);
     const productdata = product.product ;
     const dispatch = useDispatch()
-
-    // const handleClickOpen = () => {
-    //     setOpen(true);
-    // };
+    const history = useHistory();
 
     const handleCatagory = (c) => {
         console.log();
@@ -31,10 +30,11 @@ function Products(props) {
         setFilterDataPro(filter)
 
     };
-
     const finalpr = filterDataPro.length > 0 ? filterDataPro : productdata;
 
-
+    const hendleDeails = (f) => {
+      history.push("/ProductDetails", f)
+    }
 
     useEffect(() => {
         dispatch(doctordata());
@@ -48,7 +48,7 @@ function Products(props) {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="inner-content">
-                                <h2>Progucts</h2>
+                                <h2>Products</h2>
                                 <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
                             </div>
                         </div>
@@ -60,7 +60,7 @@ function Products(props) {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section-heading">
-                                <h2>Our Latest Progucts</h2>
+                                <h2>Our Latest Products</h2>
                                 <span>Check out all of our products.</span>
                             </div>
                         </div>
@@ -79,11 +79,9 @@ function Products(props) {
                                     {
                                         categ.doctor.map((c) => {
                                             return (
-                                                // <a href='#' onClick={(e) => handleCatagory(c.id)}>
-                                                    <div onClick={(e) => handleCatagory(c.id)} className='category_name'>
-                                                    {c.categ_name}
-                                                    </div>
-                                                // </a>
+                                                <div onClick={(e) => handleCatagory(c.id)} className='category_name'>
+                                                {c.categ_name}
+                                                </div>
                                             )
                                         })
                                     }
@@ -111,15 +109,15 @@ function Products(props) {
                                         <div className='productbox'>
                                             <h4 className='name mt-2'>{e.product_name}</h4>
                                             <div className='price'>Price : {e.product_price}</div>
-                                            <p className='pro-list'>Catagory : {e.product_list}</p>
-                                            <p className='description-pro'>{e.product_description}</p>
+                                            {/* <p className='pro-list'>Catagory : {e.product_list}</p> */}
+                                            {/* <p className='description-pro'>{e.product_description}</p> */}
                                         </div>
                                     </div>
                                     <div className="button">
                                         <div className="total">
                                                 <div className="main-border-button mt-3" type="button">
                                                     <a href="#">Add To Cart</a>
-                                                    <a className='ml-4' href="#">Buy Now</a>
+                                                    <a className='ml-4' onClick={() => hendleDeails(e)}>Read More</a>
                                                 </div>
                                                 <div className="main-border-button" type="button">
                                                 </div>
