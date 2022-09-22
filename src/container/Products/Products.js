@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doctordata } from '../../Redux/Action/doctor.action';
 import { getProduct } from '../../Redux/Action/product.action';
 import { useHistory } from 'react-router-dom';
+import { addcartaction } from '../../Redux/Action/Cart.action';
 
 function Products(props) {
     const [open, setOpen] = useState(false);
@@ -28,9 +29,16 @@ function Products(props) {
             }
         })
         setFilterDataPro(filter)
-
     };
     const finalpr = filterDataPro.length > 0 ? filterDataPro : productdata;
+
+    const hendleCart = (e) => {
+        const CartData = {
+            e,quantity
+        }
+        dispatch(addcartaction(CartData))
+        history.push('Cart', CartData)
+    }
 
     const hendleDeails = (f) => {
       history.push("/ProductDetails", f)
@@ -116,7 +124,7 @@ function Products(props) {
                                     <div className="button">
                                         <div className="total">
                                                 <div className="main-border-button mt-3" type="button">
-                                                    <a href="#">Add To Cart</a>
+                                                    <a onClick={() => hendleCart(e.id)}>Add To Cart</a>
                                                     <a className='ml-4' onClick={() => hendleDeails(e)}>Read More</a>
                                                 </div>
                                                 <div className="main-border-button" type="button">

@@ -15,6 +15,7 @@ import { counterStore } from "./Redux/Store";
 import { PersistGate } from 'redux-persist/integration/react'
 import Product_admin from "./adminpanel/container/Product_admin";
 import ProductDetails from "./container/ProductDetails/ProductDetails";
+import Cart from "./container/Cart/Cart";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route exact path={"/product_admin"} component={Product_admin} />
             <Route exact path={"/products"} component={Products} />
             <Route exact path={"/productdetails"} component={ProductDetails} />
+            <Route exact path={"/cart"} component={Cart} />
             <Route exact path={"/category"} component={Category} />
             <Route exact path={"/single-product"} component={Single_Product} />
             <Route exact path={"/login"} component={Login} />

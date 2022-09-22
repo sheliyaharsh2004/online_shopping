@@ -14,3 +14,6 @@ export const DELETE_DOCTOR = "DELETE_DOCTOR"
 export const UPDATE_DOCTOR = "UPDATE_DOCTOR"
 export const LOADING_DOCTOR = "LOADING_DOCTOR"
 export const ERROR_DOCTOR = "ERROR_DOCTOR"
+
+export const CART_ADD_DATA = "CART_ADD_DATA"
+export const CART_GET_DATA = "CART_GET_DATA"

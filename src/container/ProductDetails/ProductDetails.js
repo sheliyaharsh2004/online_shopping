@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BoltIcon from '@mui/icons-material/Bolt';
 import { useDispatch } from 'react-redux';
-import { AddcartAction } from '../../Redux/Action/Cart.action';
+import { addcartaction } from '../../Redux/Action/Cart.action';
 import { useHistory } from 'react-router-dom';
 
 function ProductDetails(props) {
@@ -16,8 +16,8 @@ function ProductDetails(props) {
         const CartData = {
             e,quantity
         }
-        dispatch(AddcartAction(CartData))
-        history.push('/CartDetails')
+        dispatch(addcartaction(CartData))
+        history.push('Cart', CartData)
     }
 
 
