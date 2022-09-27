@@ -1,88 +1,92 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getcartaction } from '../../Redux/Action/Cart.action';
-import { decrement, increment } from '../../Redux/Action/Counter.action';
+import { decrement, deletecart, increment } from '../../Redux/Action/Cart.action';
 import { getProduct } from '../../Redux/Action/product.action';
 
 function Cart(props) {
 
-    const cartdata = useSelector(state => state.cart)
-    const cart = cartdata.cart
-
-    const productdata = useSelector(state => state.product)
-    const product = productdata.product
-
-    const counter = useSelector(state => state.counter)
-    const productfilter = []
-
-    cart.map(c => (product.map((p) => {
-        if (p.id === c.id) {
-            productfilter.push(p)
-        }
-        console.log(p.id);
-    })))
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getProduct())
-        dispatch(getcartaction())
-    }, [])
-
-
-    const handleincrement = () => {
-        dispatch(increment())
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.product);
+    const cartProducts = useSelector(state => state.cart);
+    const productsData = products.product;
+    const cartProductsData = cartProducts.cart;
+    console.log(cartProductsData , productsData);
+    
+    const cartData = [];
+    productsData.map((p) => {
+        cartProductsData.map((c) => {
+            if (p.id === c.e) {
+                let Data = {
+                    ...p,
+                    quantity: c.quantity
+                }
+                cartData.push(Data)
+                
+            }
+        })
+    })
+ 
+    const handleIncrement = (id) => {
+        dispatch(increment(id))
     }
 
-    const handledecrement = () => {
-        dispatch(decrement())
+    const handleDecrement = (id) => {
+        dispatch(decrement(id))
+    }
+
+    useEffect(() => {
+        dispatch(getProduct());
+    }, [])
+
+    const handleDelete = (id) => {
+        dispatch(deletecart(id));
     }
 
     return (
-        <>
-            <section>
-                <div className='container'>
-                    <div>
-                        <h2>Your Cart</h2>
-                    </div>
-                    <div>
-                        <table>
-                            {
-                                productfilter.map((C) => (
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                            <div className="img-box">
-                                                <img src={C.file} />
+
+        <div className='product_details Cart_Details section'>
+            <div className='container'>
+                <div className="row">
+                    {
+                        cartData.map((c) => (
+                            <>
+                                <div className='col-lg-12'>
+                                    <div className="section-heading">
+                                        <h2>Our Latest Category</h2>
+                                    </div>
+
+                                    <div className='AddCartBox'>
+                                        <div className='CartProductDetails'>
+                                            <div className='productImg' style={{height: "112px", width: "112px", overflow: "hidden"}}>
+                                                <img src={c.file} width="100%" height="auto"  />
                                             </div>
-                                            
-                                            </td>
-                                            <td className="">
-                                                <a href="">{C.product_name}</a>
-                                            </td>
-                                            <td className="">
-                                                <span className="">${C.product_price}</span>
-                                            </td>
-                                            <td className="">
-                                                <div className="text-center">
-                                                    <div className='d-flex'>
-                                                        <button onClick={() => handleincrement(C.id)}>+</button>
-                                                        {C.id === counter.id ?
-                                                            <p>{counter.counter}</p> : 1
-                                                        }
-                                                        <button onClick={() => handledecrement(C.id)}>-</button>
-                                                    </div>
+                                        <div className='ProductItem'>
+                                            <h3>{c.product_name}</h3>
+                                            <p className='mb-3'>₹{c.product_price}</p>
+                                            <div className='items'>
+                                                <button disabled={c.quantity === 1 && true} onClick={() => handleDecrement(c.id)}>-</button>
+                                                <div className='input'>
+                                                    <input type="text" />
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                ))
-                            }
-                        </table>
+                                                <button onClick={() => handleIncrement(c.id)}>+</button>
+                                            </div>
+                                        </div>
+                                        <div className='main-border-button mt-4' >
+                                            <div className='deleteItem' onClick={() => handleDelete(c.id)}>REMOVE</div>
+                                        </div>
+                                    </div>
+                                    <div className=' main-border-button mt-4'>
+                                        <a >Add Item</a>
+                                    </div>
+                        </div>
                     </div>
+                            </>
+                        ))
+                    }
                 </div>
-            </section>
-        </>
+            </div>
+        </div>
+
     );
 }
-export default Cart;   
+export default Cart;

@@ -17,3 +17,4 @@ export const ERROR_DOCTOR = "ERROR_DOCTOR"
 
 export const CART_ADD_DATA = "CART_ADD_DATA"
 export const CART_GET_DATA = "CART_GET_DATA"
+export const CART_DELETE_DATA = "CART_DELETE_DATA"
