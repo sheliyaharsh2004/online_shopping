@@ -21,11 +21,10 @@ function Cart(props) {
                     quantity: c.quantity
                 }
                 cartData.push(Data)
-                
             }
         })
     })
- 
+    console.log("cartData", cartData);
     const handleIncrement = (id) => {
         dispatch(increment(id))
     }
@@ -64,15 +63,15 @@ function Cart(props) {
                                             <h3>{c.product_name}</h3>
                                             <p className='mb-3'>₹{c.product_price}</p>
                                             <div className='items'>
-                                                <button disabled={c.quantity === 1 && true} onClick={() => handleDecrement(c.id)}>-</button>
+                                                <button disabled={c.quantity === 1 && true} onClick={() => handleDecrement(c.e)}>-</button>
                                                 <div className='input'>
-                                                    <input type="text" />
+                                                    <input type="text" value={c.quantity} />
                                                 </div>
-                                                <button onClick={() => handleIncrement(c.id)}>+</button>
+                                                <button onClick={() => handleIncrement(c.e)}>+</button>
                                             </div>
                                         </div>
                                         <div className='main-border-button mt-4' >
-                                            <div className='deleteItem' onClick={() => handleDelete(c.id)}>REMOVE</div>
+                                            <div className='deleteItem' onClick={() => handleDelete(c.e)}>REMOVE</div>
                                         </div>
                                     </div>
                                     <div className=' main-border-button mt-4'>

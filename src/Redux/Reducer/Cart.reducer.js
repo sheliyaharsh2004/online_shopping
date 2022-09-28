@@ -7,7 +7,7 @@ const initalstate = {
 }
 
 export const Cartreducer  = (state=initalstate , action) => {
-
+    console.log("action.payload", action.payload, action.type, state);
     switch (action.type) {
         case ActionType.CART_GET_DATA :
             return {
@@ -34,8 +34,9 @@ export const Cartreducer  = (state=initalstate , action) => {
                 ...state,
                 isLoading: false,
                 cart : state.cart.map((c) => {
-                    if(c.id === action.payload){
-                        return { id: c.id,
+                    console.log(c);
+                    if(c.e === action.payload){
+                        return { id: c.e,
                             quantity: c.quantity + 1
                         }
                     } else{
@@ -49,8 +50,8 @@ export const Cartreducer  = (state=initalstate , action) => {
                 ...state,
                 isLoding : false,
                 cart : state.cart.map((c) => {
-                    if(c.id === action.payload){
-                        return { id: c.id,
+                    if(c.e === action.payload){
+                        return { id: c.e,
                             quantity: c.quantity - 1
                         }
                     } else{

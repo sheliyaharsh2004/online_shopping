@@ -1,7 +1,7 @@
 import * as ActionType from '../ActionType'
 
 export const addcartaction = (data) => (dispatch) => {
-    dispatch({type:ActionType.CART_ADD_DATA, payload:data})
+    dispatch({type: ActionType.CART_ADD_DATA, payload: data})
 }
 
 export const getcartaction = () => (dispatch) => {
@@ -12,10 +12,10 @@ export const deletecart = (data) => (dispatch) => {
     dispatch({ type: ActionType.CART_DELETE_DATA, payload: data })
 }
 
-export const increment = () => (dispatch) =>{
-    dispatch ({type : ActionType.INCREMENTED})
+export const increment = (id) => (dispatch) =>{
+    dispatch ({type : ActionType.INCREMENTED, payload: id})
 }
 
-export const decrement = () => (dispatch) =>{
-    dispatch ({type : ActionType.DECREMENTED})
+export const decrement = (id) => (dispatch) =>{
+    dispatch ({type : ActionType.DECREMENTED, payload: id})
 }
