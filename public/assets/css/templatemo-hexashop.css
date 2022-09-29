@@ -1867,7 +1867,9 @@ Single Product Page
   text-align: left;
   position: relative;
   white-space: nowrap;
-  vertical-align: top; }
+  vertical-align: top; 
+  display: flex;
+}
  
  .quantity.buttons_added input {
   display: inline-block;
@@ -1877,11 +1879,12 @@ Single Product Page
  }
  
  .quantity.buttons_added .minus,
+ .quantity.buttons_added .input-text,
  .quantity.buttons_added .plus {
   padding: 7px 10px 8px;
   height: 39px;
   background-color: #ffffff;
-  border: 1px solid #efefef;
+  border: 1px solid #a8a8a8;
   cursor:pointer;}
  
  .quantity.buttons_added .minus {
@@ -2577,7 +2580,7 @@ justify-content: space-around;
   align-items: center;
   justify-content: center;
 }
-.Cart_Details .AddCartBox .CartProductDetails .deleteItem{
+.Cart .AddCartBox .CartProductDetails .deleteItem{
   font-size: 16px;
   color: #212121;
   cursor: pointer;

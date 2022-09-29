@@ -13,6 +13,7 @@ export const deletecart = (data) => (dispatch) => {
 }
 
 export const increment = (id) => (dispatch) =>{
+    console.log(id);
     dispatch ({type : ActionType.INCREMENTED, payload: id})
 }
 
