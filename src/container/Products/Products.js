@@ -32,9 +32,9 @@ function Products(props) {
     };
     const finalpr = filterDataPro.length > 0 ? filterDataPro : productdata;
 
-    const hendleCart = (e) => {
+    const hendleCart = (id) => {
         const CartData = {
-            e,quantity
+            id,quantity
         }
         dispatch(addcartaction(CartData))
         history.push('Cart', CartData)

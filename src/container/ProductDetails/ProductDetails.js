@@ -12,12 +12,12 @@ function ProductDetails(props) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const hendleCart = (e) => {
+    const hendleCart = (id) => {
         const CartData = {
-            e,quantity
+            id,quantity
         }
         dispatch(addcartaction(CartData))
-        history.push('Cart', CartData)
+        history.push('/Cart')
     }
 
 

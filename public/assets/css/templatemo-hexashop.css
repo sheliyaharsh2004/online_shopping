@@ -2501,8 +2501,7 @@ justify-content: space-around;
   background: #fb641b;
 }
 .product_details .product_img{
-  border: 1px solid #f0f0f0;
-  padding: 20px;
+  /* border: 1px solid #f0f0f0; */
   display: flex;
   justify-content: center;
 }
@@ -2517,7 +2516,9 @@ justify-content: space-around;
 }
 .Cart_Details .AddCartBox .CartProductDetails{
   display: flex;
-  padding: 24px;
+  /* padding: 24px; */
+  flex-direction: row;
+  justify-content: space-between;
 }
 .Cart_Details .AddCartBox .CartProductDetails .ProductItem {
   padding: 0 24px 12px;

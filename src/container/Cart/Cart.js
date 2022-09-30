@@ -11,10 +11,7 @@ function Cart(props) {
     const cartProducts = useSelector(state => state.cart);
     const productsData = products.product;
     const cartProductsData = cartProducts.cart;
-    console.log(cartProductsData, productsData);
 
-
-    console.log("cartProductsData", cartProductsData);
     const cartData = [];
     productsData.map((p) => {
         cartProductsData.map((c) => {
@@ -27,7 +24,7 @@ function Cart(props) {
             }
         })
     })
-    console.log("cartData", cartData);  
+    console.log( cartData);  
 
 
     const handleIncrement = (id) => {
@@ -53,15 +50,15 @@ function Cart(props) {
         <div className='product_details Cart_Details section'>
             <div className='container'>
                 <div className="row">
-                    <div className='col-lg-10'>
+                    <div className='col-lg-8'>
                         <div className="section-heading">
                             <h2 className='mt-5'>Our Latest Category</h2>
                         </div>
                         {
                             cartData.map((c) => (
                                 <>
-                                    <div className='AddCartBox mt-3'>
-                                        <div className='CartProductDetails'>
+                                    <div className='AddCartBox mt-5'>
+                                        <div className='CartProductDetails mb-2'>
                                             <div className='productImg' style={{ height: "112px", width: "112px", overflow: "hidden" }}>
                                                 <img src={c.file} width="100%" height="auto" />
                                             </div>
