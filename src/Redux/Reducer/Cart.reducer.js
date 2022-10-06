@@ -7,7 +7,7 @@ const initalstate = {
 }
 
 export const Cartreducer  = (state=initalstate , action) => {
-    console.log("action.payload", action.payload, action.type, state);
+    // console.log("action.payload", action.payload, action.type, state);
     switch (action.type) {
         case ActionType.CART_GET_DATA :
             return {
@@ -16,10 +16,15 @@ export const Cartreducer  = (state=initalstate , action) => {
                 error: ""
             }
         case ActionType.CART_ADD_DATA :
+            const Data = state.cart.find((c) => c.id === action.payload.id);
+            if(Data){
+                Data.quantity++;
+            } else {
+                state.cart.push(action.payload);
+            }
             return {
                 ...state,
                 isLoading: false,
-                cart: state.cart.concat(action.payload),
                 error: ""
             } 
         case ActionType.CART_DELETE_DATA : 

@@ -147,9 +147,9 @@ body {
 
 .main-border-button a {
   font-size: 13px;
-  color: #fff;
-  border: 1px solid #fff;
-  padding: 12px 25px;
+  color: #000;
+  border: 1px solid #000;
+  padding: 10px 20px;
   display: inline-block;
   font-weight: 500;
   transition: all .3s;
@@ -158,6 +158,10 @@ body {
 .main-border-button a:hover {
   background-color: #fff;
   color: #2a2a2a;
+}
+
+.addItem PlaceOrder{
+  
 }
 
 .main-white-button a {
@@ -1855,8 +1859,8 @@ Single Product Page
   display: inline-block; }
  
  .quantity .input-text.qty {
-  width: 35px;
-  height: 39px;
+  width: 40px;
+  height: 40px;
   padding: 0 5px;
   text-align: center;
   background-color: transparent;
@@ -2521,7 +2525,7 @@ justify-content: space-around;
   justify-content: space-between;
 }
 .Cart_Details .AddCartBox .CartProductDetails .ProductItem {
-  padding: 0 24px 12px;
+  /* padding: 0 24px 12px; */
   width: calc(100% - 240px);
 }
 
@@ -2589,7 +2593,11 @@ justify-content: space-around;
   text-align: center;
 }
 .Cart_Details .AddCartBox .CartProductDetails .deleteItem:hover{
-  color: #763ae3;
+  color: #e33a3a;
+}
+
+.Price_Details{
+  margin-left: 50px;
 }
 
 .Price_Details .title{
