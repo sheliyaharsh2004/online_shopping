@@ -99,7 +99,7 @@ function Cart(props) {
         <div className='product_details Cart_Details section'>
             <div className='container'>
                 <div className="row">
-                    <div className='col-lg-8'>
+                    <div className='col-lg-9'>
                         { placeOrder ?
                             <Formik value={formik}>
                                 <Form key={formik} onSubmit={formik.handleSubmit}>
@@ -184,7 +184,7 @@ function Cart(props) {
                                                     </div>
                                                     <div className='ProductItem'>
                                                         <h3>{c.product_name}</h3>
-                                                        <p className='mb-3'>₹{c.product_price}</p>
+                                                        <p className='mb-4 product_price'>₹{c.product_price}</p>
                                                         <div className='quantity buttons_added'>
                                                             <input disabled={c.quantity === 1 && true} onClick={() => handleDecrement(c.id)} type="button" defaultValue="-" className="minus" />
                                                             <div className='input'>
@@ -201,24 +201,24 @@ function Cart(props) {
                                         </>
                                     ))
                                 }
-                                <div className='main-border-button mt-4'>
+                                <div className='main-border-button add-box mt-4'>
                                     <Link to={"/products"} className='addItem'>Add Item</Link>
                                     <a className='addItem PlaceOrder ' onClick={handelOrder}>Place Order</a>
                                 </div>
                             </div>
                         }
                     </div>
-                    <div className='col-lg-4'>
+                    <div className='col-lg-3'>
                         <div className='Price_Details'>
                             <h2 className="title mt-5">Price Details</h2>
                             <div className='details'>
-                                <p>Price ({cartData.length} item) <span>₹{TotalAmount}</span></p>
-                                <p>Discount<span>- ₹{Discount}</span></p>
+                                <p>Price ({cartData.length} item) <span>₹ {TotalAmount}</span></p>
+                                <p>Discount<span>- ₹ {Discount}</span></p>
                             </div>
                             <div className='amount'>
-                                <p>Total Amount <b><span>₹{FinalAmount}</span></b></p>
+                                <p>Total Amount <b><span>₹ {FinalAmount}</span></b></p>
                             </div>
-                            <p className='save'>You will save ₹{Discount} on this order</p>
+                            <p className='save'>You will save ₹ {Discount} on this order</p>
                         </div>
                     </div>
                 </div>
