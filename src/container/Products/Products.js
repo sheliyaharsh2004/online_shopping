@@ -106,7 +106,7 @@ function Products(props) {
                             Our<span>products</span>
                         </h2>
                     </div>
-                    <div className="row">
+                    <div className="p-box row">
                         {
                            finalpr.map((e) => (
                                 <div className="col-sm-4 mt-4 mb-4 box">
@@ -115,8 +115,8 @@ function Products(props) {
                                     </div>
                                     <div className="detail-box">
                                         <div className='productbox'>
-                                            <h4 className='name mt-2'>{e.product_name}</h4>
-                                            <div className='price'>Price : {e.product_price}</div>
+                                            <h4 className='name mt-2 ml-2'>{e.product_name}</h4>
+                                            <div className='price ml-2'>Price : {e.product_price}</div>
                                             {/* <p className='pro-list'>Catagory : {e.product_list}</p> */}
                                             {/* <p className='description-pro'>{e.product_description}</p> */}
                                         </div>

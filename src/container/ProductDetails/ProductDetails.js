@@ -44,7 +44,7 @@ function ProductDetails(props) {
                                         <div className='total'>
                                             <div className='main-border-button mt-4' type='button'>
                                                 <a onClick={() => hendleCart(p.id)}><ShoppingCartIcon />Add to cart</a>
-                                                <a className='ml-4'><BoltIcon />Buy now</a>
+                                                {/* <a className='ml-4'><BoltIcon />Place Order</a> */}
                                             </div> 
                                         </div>
                                     </div>

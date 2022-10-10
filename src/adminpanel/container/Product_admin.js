@@ -186,7 +186,7 @@ function Product_admin(props) {
         </Button>
       </div>
       <div>
-        <div className="mt-3" style={{ height: 400, width: '100%' }}>
+        <div className="p-4" style={{ height: 419, width: '100%' }}>
           <DataGrid
             rows={productdata}
             columns={columns}

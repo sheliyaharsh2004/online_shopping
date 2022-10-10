@@ -2532,3 +2532,6 @@ justify-content: space-around;
   font-size: large;
   line-height: 20px;
 }
+.p-box{
+  box-shadow: 0 -2px 10px 0 rgb(0 0 0 / 10%);
+}

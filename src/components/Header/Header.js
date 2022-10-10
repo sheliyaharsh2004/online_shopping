@@ -9,7 +9,7 @@ function Header(props) {
                     <div className="col-12">
                         <nav className="main-nav">
                             {/* ***** Logo Start ***** */}
-                            <a href="index.html" className="logo">
+                            <a href="/" className="logo">
                                 <img src="assets/images/logo.png" />
                             </a>
                             {/* ***** Logo End ***** */}
@@ -19,34 +19,25 @@ function Header(props) {
                                     <NavLink to={"/"}>Home</NavLink>
                                 </li>
                                 <li className="scroll-to-section">
-                                    <NavLink to={"/men"} className="">Men's</NavLink>
+                                    <NavLink to={"/about"} className="">About</NavLink>
                                 </li>
                                 <li className="scroll-to-section">
-                                    <NavLink to={"/women"}>Women's</NavLink>
+                                    <NavLink to={"/products"}>products</NavLink>
                                 </li>
                                 <li className="scroll-to-section">
-                                    <NavLink to={"/kid"} className="">Kid's</NavLink>
+                                    <NavLink to={"/category"} className="">Category</NavLink>
                                 </li>
-                                <li className="submenu">
+                                <li className="scroll-to-section">
+                                    <NavLink to={"/contact"} className="">Contact</NavLink>
+                                </li>
+                                {/* <li className="submenu">
                                     <a href="javascript:;">Pages</a>
                                     <ul>
                                         <li>
-                                            <NavLink to={"/about"} className="active">About</NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to={"/products"} className="active">Products</NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to={"/category"} className="active">Category</NavLink>
-                                        </li>
-                                        <li>
                                             <NavLink to={"/single-product"} className="active">Single_Product</NavLink>
                                         </li>
-                                        <li>
-                                            <NavLink to={"/contact"} className="active">Contact</NavLink>
-                                        </li>
                                     </ul>
-                                </li>
+                                </li> */}
                                 {/* <li className="submenu">
                                     <a href="javascript:;">Features</a>
                                     <ul>
